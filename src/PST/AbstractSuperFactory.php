@@ -61,7 +61,7 @@ class AbstractSuperFactory {
         $full_factory = array_key_exists($factoryname, $this->known_factories) ? $this->known_factories[$factoryname] : "";
 
         if ($full_factory != "") {
-            $class = "AssociationVoting\\V6API\\$full_factory";
+            $class = "PST\\$full_factory";
             $this->factory_map[$factoryname] = new $class($this->dbh, $this);
             return $this->factory_map[$factoryname];
         } else {
