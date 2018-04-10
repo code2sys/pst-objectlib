@@ -19,9 +19,13 @@ class MDFeedObject extends AbstractObject {
         return new \SimpleXMLElement($this->getXMLFeed());
     }
 
-    public function generateMDRecords() {
+    public function generateMDRecords($debug) {
         $uniq_id = uniqid(gethostname() . "_");
         $structured_xml = $this->getStructuredXML();
+
+        if ($debug) {
+            print "Structure has " . count($structured_xml->channel->item) . " parts \n";
+        }
 
         $stmt = $this->dbh->prepare("Update mdrecord set uniqid = ?, active = 0 where mdfeed_id = ?");
         $stmt->bindValue(1, $uniq_id);
@@ -52,11 +56,21 @@ class MDFeedObject extends AbstractObject {
             $g_ns = $item->children("http://base.google.com/ns/1.0");
             foreach (array("STOCKNO", "color", "condition", "make", "mileage", "model", "owner", "price_type", "store", "vehicle_type", "vin", "year") as $f) {
                 $value = $g_ns->$f;
+
+                if ($f == "condition") {
+                    $f = "sale_condition";
+                }
+
                 if (isset($value) && !is_null($value) && FALSE !== $value) {
                     $data[$f] = $value;
                 } else {
                     $data[$f] = null;
                 }
+            }
+
+            if ($debug) {
+                print "Data: \n";
+                print_r($data);
             }
 
             $records[] = $r = $this->factory()->master()->mdrecord()->add($data);   
@@ -72,13 +86,18 @@ class MDFeedObject extends AbstractObject {
             $value = $item->$f_name;
             while (isset($value) && !is_null($value) && FALSE !== $value) {
                 // we have a new URL...
-                $this->factory()->master()->mdrecordimage()->add(array(
+                $image = $this->factory()->master()->mdrecordimage()->add(array(
                     "mdrecord_id" => $r->id(),
                     "uniqid" => $uniq_id,
                     "last_seen" => date("Y-m-d H:i:s"),
                     "active" => 1,
                     "url" => $value
                 ));
+
+                if ($debug) {
+                    print "Image: \n";
+                    print_r($image);
+                }
                 
                 $k++;
                 $f_name = "image" . $k;
