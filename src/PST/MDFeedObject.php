@@ -55,6 +55,7 @@ class MDFeedObject extends AbstractObject {
 
             // You need to get the g-namespaced stuff https://www.sitepoint.com/simplexml-and-namespaces/
             $g_ns = $item->children("http://base.google.com/ns/1.0");
+            print_r($g_ns);
             foreach (array("STOCKNO", "color", "condition", "make", "mileage", "model", "owner", "price_type", "store", "vehicle_type", "vin", "year") as $f) {
                 $value = $g_ns->$f;
 
