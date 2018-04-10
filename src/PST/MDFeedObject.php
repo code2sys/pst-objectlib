@@ -85,7 +85,7 @@ class MDFeedObject extends AbstractObject {
             $k = 1;
             $f_name = "image" . $k;
             $value = $item->$f_name;
-            while (isset($value) && !is_null($value) && FALSE !== $value) {
+            while (isset($value) && !is_null($value) && FALSE !== $value && trim($value) !== "" && $k < 100) {
                 // we have a new URL...
                 $image = $this->factory()->master()->mdrecordimage()->add(array(
                     "mdrecord_id" => $r->id(),
