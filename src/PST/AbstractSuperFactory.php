@@ -47,7 +47,6 @@ class AbstractSuperFactory {
 
     public function __construct($dbh)
     {
-        parent::__construct($dbh);
         $this->dbh = $dbh;
         $this->dbh->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
         $this->factory_map = array();
