@@ -1,0 +1,21 @@
+{
+    "name" : "pst/objectlib",
+    "description" : "This is a simple object library that is going to allow us to package up things in PST in a better way.",
+    "license" : "Properietary",
+    "authors" : [
+      {
+        "name" : "Jonathan Brown",
+        "email" : "jonathan@orbro.com"
+      }
+    ],
+    "require" : {
+    },
+    "require-dev" : {
+    },
+    "autoload": {
+      "psr-0" : {
+        "PST" : "src"
+      }
+    }
+  }
+  
