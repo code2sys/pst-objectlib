@@ -35,6 +35,7 @@ class MDFeedObject extends AbstractObject {
         // Now, iterate over the items...
         $records = array();
         for ($i = 0; $i < count($structured_xml->channel->item); $i++) {
+            $item = $structured_xml->channel->item[$i];
             $data = array(
                 "uniqid" => $uniq_id,
                 "mdfeed_id" => $this->id(),
