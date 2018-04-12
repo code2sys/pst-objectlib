@@ -20,7 +20,10 @@ class API extends  AbstractSuperFactory {
             "vseptprospect" => "VSeptProspectFactory",
             "mdfeed" => "MDFeedFactory",
             "mdrecord" => "MDRecordFactory",
-            "mdrecordimage" => "MDRecordImageFactory"
+            "mdrecordimage" => "MDRecordImageFactory",
+            "motorcycle" => "MotorcycleFactory",
+            "motorcycleimage" => "MotorcycleImageFactory",
+            "motorcyclecategory" => "MotorcycleCategoryFactory"
         );
     }
 
@@ -35,5 +38,14 @@ class API extends  AbstractSuperFactory {
     }
     public function mdrecordimage() {
         return $this->fetch("mdrecordimage");
+    }
+    public function motorcycle() {
+        return $this->fetch("motorcycle");
+    }
+    public function motorcycleimage() {
+        return $this->fetch("motorcycleimage");
+    }
+    public function motorcyclecategory() {
+        return $this->fetch("motorcyclecategory");
     }
 }
