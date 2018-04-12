@@ -190,9 +190,9 @@ abstract class AbstractFactory
         $duplicate_string = $this->table_id . " = LAST_INSERT_ID(" . $this->table_id . ")";
 
         foreach ($kvpArray as $k => $v) {
-            $keys .= ($keys != "" ? ", " : "") . $k;
+            $keys .= ($keys != "" ? ", " : "") . "`" . $k . "`";
             $value_string .= ($value_string != "" ? ", " : "") . "?";
-            $duplicate_string .= ($duplicate_string != "" ? ", " : "") . " $k = values($k) ";
+            $duplicate_string .= ($duplicate_string != "" ? ", " : "") . " `$k` = values(`$k`) ";
             $values[] = $v;
         }
 
@@ -212,19 +212,70 @@ abstract class AbstractFactory
         return $this->get($id);
     }
 
-    public function update($id, $kvpArray) {
-        if (count($kvpArray) == 0) {
-            return $this->get($id); // nothing to do!
+    public function updateWhere($set_kvpArray, $where_kvpArray) {
+        $set_kvpArray = $this->_cleanArray($set_kvpArray);
+        $where_kvpArray = $this->_cleanArray($where_kvpArray);
+
+        if (count($set_kvpArray) == 0) {
+            return;
         }
 
+        $value_string = "";
+        $values = array();
+        $this->_generateUpdateValuesValueString($set_kvpArray, $value_string, $values);
+
+        $where_string = "";
+        $where_values = array();
+        $this->_generateWhereValueString($where_kvpArray, $where_string, $where_values);
+
+
+
+        // if we are still here...
+        $query = "Update " . $this->table . " SET $value_string " . ($where_string != "" ? " WHERE " : "") . $where_string;
+        $stmt = $this->dbh->prepare($query);
+        $k = 1;
+        foreach ($values as $v) {
+            $stmt->bindValue($k, $v);
+            $k++;
+        }
+        foreach ($where_values as $v) {
+            $stmt->bindValue($k, $v);
+            $k++;
+        }
+        $stmt->execute();
+    }
+
+    protected function _generateWhereValueString($kvpArray, &$where_string, &$where_values) {
+        $kvpArray = $this->_cleanArray($kvpArray);
+        $where_string = "";
+        $where_values = array();
+
+        foreach ($kvpArray as $k => $v) {
+            $where_string .= ($where_string != "" ? " AND " : "") . " `$k` = ? ";
+            $where_values[] = $v;
+        }
+
+    }
+
+    protected function _generateUpdateValuesValueString($kvpArray, &$value_string, &$values) {
         $kvpArray = $this->_cleanArray($kvpArray);
         $value_string = "";
         $values = array();
 
         foreach ($kvpArray as $k => $v) {
-            $value_string .= ($value_string != "" ? ", " : "") . " $k = ? ";
+            $value_string .= ($value_string != "" ? ", " : "") . " `$k` = ? ";
             $values[] = $v;
         }
+    }
+
+    public function update($id, $kvpArray) {
+        if (count($kvpArray) == 0) {
+            return $this->get($id); // nothing to do!
+        }
+
+        $value_string = "";
+        $values = array();
+        $this->_generateUpdateValuesValueString($kvpArray, $value_string, $values);
 
         if (count($values) > 0) {
             $values[] = $id;

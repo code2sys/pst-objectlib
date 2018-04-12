@@ -49,7 +49,7 @@ class MDRecordFactory extends AbstractFactory
     {
         parent::__construct($dbh, $master_factory, $obj, $table, $id);
         $this->_datacols = array(
-            "uniqid", "mdfeed_id", "description", "dsrp", "sku", "color", "condition", "make", "model", "mileage", "owner", "price_type",
+            "uniqid", "mdfeed_id", "description", "dsrp", "STOCKNO", "color", "sale_condition", "make", "model", "mileage", "owner", "price_type",
             "store", "vehicle_type", "vin", "year", "link",
             "location_city", "location_state", "location_street", "location_street2", "location_tel", "location_zip",
             "msrp", "recordid", "style", "title", "last_seen", "active"
