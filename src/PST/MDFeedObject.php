@@ -97,7 +97,7 @@ class MDFeedObject extends AbstractObject {
 
                 if ($debug) {
                     print "Image: \n";
-                    print_r($image);
+                    print_r($image->to_array());
                 }
                 
                 $k++;
