@@ -28,7 +28,8 @@ class VSeptProspectObject extends AbstractObject {
                 "DealershipId" => $this->factory()->master()->config()->getKeyValue("vsept_dealership_id")
         ), false, false);
 
-        $xml_string = '<?xml version="1.0" encoding="utf-8"?><ProspectImport>' . $xml_string . '</ProspectImport>';
+        // <?xml version="1.0" encoding="utf-8"?>
+        $xml_string = '<ProspectImport>' . $xml_string . '</ProspectImport>';
 
         // now, we need to post it to a URL and get the results...
         try {
