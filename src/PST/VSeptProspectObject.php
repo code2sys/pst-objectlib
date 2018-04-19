@@ -44,7 +44,7 @@ class VSeptProspectObject extends AbstractObject {
                 error_log("Found PCHId" . $result->Prospect->PCHId);
                 $this->set("PCHId", $result->Prospect->PCHId);
             } else {
-                error_log("Unexpected result: " . print_r($results));
+                error_log("Unexpected result: " . print_r($results, true));
             }
 
         } catch(\Exception $e) {
