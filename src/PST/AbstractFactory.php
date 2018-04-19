@@ -450,4 +450,69 @@ abstract class AbstractFactory
         }
         $stmt->execute();
     }
+
+    /**
+     * @param $xml_string
+     * @param $url
+     */
+    public function postXMLToURL($xml_string, $url, $headers = array(), $return_raw_curl_object = false, $return_raw_curl_result = false, $return_body_only = false) {
+        // We are going to
+        $ch = curl_init();
+        $headers = [];
+
+        curl_setopt( $ch, CURLOPT_URL, $url );
+        curl_setopt( $ch, CURLOPT_POST, true );
+        $headers["Content-Type"] = "text/html";
+        curl_setopt( $ch, CURLOPT_HTTPHEADER, $headers);
+        curl_setopt( $ch, CURLOPT_RETURNTRANSFER, true );
+        curl_setopt( $ch, CURLOPT_POSTFIELDS, $xml_string );
+
+        //https://stackoverflow.com/questions/9183178/can-php-curl-retrieve-response-headers-and-body-in-a-single-request#9183272
+        // this function is called by curl for each header received
+        if ($return_body_only) {
+            curl_setopt($ch, CURLOPT_HEADER, false);
+        } else {
+
+            curl_setopt($ch, CURLOPT_HEADERFUNCTION,
+                function ($curl, $header) use (&$headers) {
+                    $len = strlen($header);
+                    $header = explode(':', $header, 2);
+                    if (count($header) < 2) // ignore invalid headers
+                        return $len;
+
+                    $name = strtolower(trim($header[0]));
+                    if (!array_key_exists($name, $headers))
+                        $headers[$name] = [trim($header[1])];
+                    else
+                        $headers[$name][] = trim($header[1]);
+
+                    return $len;
+                }
+            );
+        }
+
+        $result = curl_exec($ch);
+        curl_close($ch);
+
+        if(curl_error($ch))
+        {
+            throw new \Exception(curl_error($ch));
+        } else {
+            if ($return_raw_curl_object) {
+                return $ch;
+            } else if ($return_raw_curl_result) {
+                return $result;
+            } else if ($return_body_only) {
+                return $result;
+            } else {
+                // we have to return a structure...
+                return array(
+                    "headers" => $headers,
+                    "result" => $result
+                );
+            }
+        }
+
+    }
+
 }
