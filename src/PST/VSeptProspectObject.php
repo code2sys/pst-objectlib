@@ -28,13 +28,13 @@ class VSeptProspectObject extends AbstractObject {
                 "DealershipId" => $this->factory()->master()->config()->getKeyValue("vsept_dealership_id")
         ), false, false);
 
-        // <?xml version="1.0" encoding="utf-8" 
+        // <?xml version="1.0" encoding="utf-8"
         $xml_string = '<ProspectImport>' . $xml_string . '</ProspectImport>';
 
         // now, we need to post it to a URL and get the results...
         try {
             $url = "http://pch.v-sept.com/VSEPTPCHPostService.aspx?method=AddProspect&sourceid=" . $this->factory()->master()->config()->getKeyValue("vsept_source_id");
-            $url = jsite_url("welcome/vseptDummy");
+            $url = jsite_url(""). "/vsept_dummy.php";
             error_log($xml_string);
             $result = $this->factory()->postXMLToURL($xml_string, $url);
             $this->set("vsept_raw_response", print_r($result, true));
