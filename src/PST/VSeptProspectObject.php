@@ -40,9 +40,9 @@ class VSeptProspectObject extends AbstractObject {
             $this->set("vsept_raw_response", print_r($result, true));
 
             $results = simplexml_load_string($result["result"]);
-            if (isset($results->Prospect) && isset($result->Prospect->PCHId)) {
-                error_log("Found PCHId" . $result->Prospect->PCHId);
-                $this->set("PCHId", $result->Prospect->PCHId);
+            if (isset($results->Prospect) && isset($results->Prospect->PCHId)) {
+                error_log("Found PCHId" . $results->Prospect->PCHId);
+                $this->set("PCHId", $results->Prospect->PCHId);
             } else {
                 error_log("Unexpected result: " . print_r($results, true));
             }
