@@ -304,9 +304,9 @@ abstract class AbstractFactory
                 $query .= " AND ";
             }
             if ($v === null || $v === FALSE) {
-                $query .= " $k is null ";
+                $query .= " `$k` is null ";
             } else {
-                $query .= " $k = ? ";
+                $query .= " `$k` = ? ";
                 $values[] = $v;
             }
         }

@@ -28,18 +28,21 @@ class VSeptProspectObject extends AbstractObject {
                 "DealershipId" => $this->factory()->master()->config()->getKeyValue("vsept_dealership_id")
         ), false, false);
 
-        $xml_string = '<?xml version="1.0" encoding="utf-8"?><ProspectImport>' . $xml_string . '</ProspectImport>';
+        // <?xml version="1.0" encoding="utf-8"
+        $xml_string = '<ProspectImport>' . $xml_string . '</ProspectImport>';
 
         // now, we need to post it to a URL and get the results...
         try {
-            $result = $this->factory()->postXMLToURL($xml_string, "http://pch.v-sept.com/VSEPTPCHPostService.aspx?method=AddProspect&sourceid=" . $this->factory()->master()->config()->getKeyValue("vsept_source_id"));
+            $url = "http://pch.v-sept.com/VSEPTPCHPostService.aspx?method=AddProspect&sourceid=" . $this->factory()->master()->config()->getKeyValue("vsept_source_id");
+            // $url = jsite_url(""). "/vsept_dummy.php";
+            $result = $this->factory()->postXMLToURL($xml_string, $url);
             $this->set("vsept_raw_response", print_r($result, true));
 
             $results = simplexml_load_string($result["result"]);
-            if (isset($results->Prospect) && isset($result->Prospect->PCHId)) {
-                $this->set("PCHId", $result->Prospect->PCHId);
+            if (isset($results->Prospect) && isset($results->Prospect->PCHId)) {
+                $this->set("PCHId", $results->Prospect->PCHId);
             } else {
-                error_log("Unexpected result: " . print_r($results));
+                throw new \Exception("Unexpected result: " . print_r($results, true));
             }
 
         } catch(\Exception $e) {
