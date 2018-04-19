@@ -35,16 +35,14 @@ class VSeptProspectObject extends AbstractObject {
         try {
             $url = "http://pch.v-sept.com/VSEPTPCHPostService.aspx?method=AddProspect&sourceid=" . $this->factory()->master()->config()->getKeyValue("vsept_source_id");
             $url = jsite_url(""). "/vsept_dummy.php";
-            error_log($xml_string);
             $result = $this->factory()->postXMLToURL($xml_string, $url);
             $this->set("vsept_raw_response", print_r($result, true));
 
             $results = simplexml_load_string($result["result"]);
             if (isset($results->Prospect) && isset($results->Prospect->PCHId)) {
-                error_log("Found PCHId" . $results->Prospect->PCHId);
                 $this->set("PCHId", $results->Prospect->PCHId);
             } else {
-                error_log("Unexpected result: " . print_r($results, true));
+                throw new \Exception("Unexpected result: " . print_r($results, true));
             }
 
         } catch(\Exception $e) {
