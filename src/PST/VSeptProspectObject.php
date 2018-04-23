@@ -46,7 +46,7 @@ class VSeptProspectObject extends AbstractObject {
             }
 
         } catch(\Exception $e) {
-            $this->set("vsept_raw_response", "Exception: " . $e->getMessage() . " - " . $e->getTraceAsString());
+            $this->set("vsept_raw_response", "Exception: $xml_string " . $e->getMessage() . " - " . $e->getTraceAsString());
         }
 
         $this->save();
