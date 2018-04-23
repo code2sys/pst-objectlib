@@ -24,12 +24,16 @@ class API extends  AbstractSuperFactory {
             "motorcycle" => "MotorcycleFactory",
             "motorcycleimage" => "MotorcycleImageFactory",
             "motorcyclecategory" => "MotorcycleCategoryFactory",
-            "config" => "ConfigFactory"
+            "config" => "ConfigFactory",
+            "motorcycleenquiry" => "MotorcycleEnquiryFactory"
         );
     }
 
     public function config() {
         return $this->fetch("config");
+    }
+    public function motorcycleenquiry() {
+        return $this->fetch("motorcycleenquiry");
     }
     public function vseptprospect() {
         return $this->fetch("vseptprospect");
