@@ -16,4 +16,8 @@ class VSeptProspectFactory extends AbstractFactory
 "Email", "Name", "Phone", "AltPhone", "SourceDate", "Address1", "Address2", "City", "State", "ZipCode", "VehicleType", "VehicleMake", "VehicleModel", "VehicleYear", "Notes", "ProspectType", "BirthDate", "CAEmployerName", "CAJobTitle", "CAHireDate", "CAMonthlyIncome", "CATimeAtAddress", "CARentOrMortgagePayment", "CARentOrOwn", "PCHId", "vsept_raw_response"
         );
     }
+
+    public function getSourceID() {
+        return "PSTWebsite";
+    }
 }
