@@ -34,7 +34,7 @@ class VSeptProspectObject extends AbstractObject {
         // now, we need to post it to a URL and get the results...
         try {
             $url = "http://pch.v-sept.com/VSEPTPCHPostService.aspx?method=AddProspect&sourceid=" . $this->factory()->getSourceID();
-            // $url = jsite_url(""). "/vsept_dummy.php";
+            $url = jsite_url(""). "/vsept_dummy.php";
             $result = $this->factory()->postXMLToURL($xml_string, $url);
             $this->set("vsept_raw_response", print_r($result, true));
 
