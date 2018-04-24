@@ -179,7 +179,14 @@ abstract class AbstractFactory
     public function remove($id) {
         $stmt = $this->dbh->prepare(sprintf("Delete from %s where %s = %d limit 1", $this->table, $this->table_id, $id));
         $stmt->execute();
-   }
+    }
+
+    public function removeWhere($kvpArray) {
+        $matches = $this->fetch($kvpArray);
+        foreach ($matches as $m) {
+            $m->remove();
+        }
+    }
 
     public function add($kvpArray) {
 

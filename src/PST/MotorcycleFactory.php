@@ -29,7 +29,8 @@ class MotorcycleFactory extends AbstractFactory
             "lightspeed_flag", "lightspeed_timestamp", "stock_status", "deleted",
             "customer_set_price", "customer_set_description", "customer_deleted",
             "lightspeed_deleted", "mdfeed", "mdfeed_deleted", "location_description", "mdrecord_recordid",
-            "mdfeed_flag", "customer_set_location_description"
+            "mdfeed_flag", "customer_set_location_description",
+            "customer_set_vin_number", "customer_set_mileage", "customer_set_color", "customer_set_call_on_price", "customer_set_destination_charge", "customer_set_condition", "customer_set_category", "customer_set_make", "customer_set_model", "customer_set_title", "customer_set_year"
         );
     }
 
@@ -37,4 +38,5 @@ class MotorcycleFactory extends AbstractFactory
     {
         return "Select * from (Select motorcycle.*, motorcycle_category.name as category_name, motorcycle_type.name as type from motorcycle left join motorcycle_category on motorcycle.category = motorcycle_category.id left join motorcycle_type on motorcycle.vehicle_type = motorcycle_type.id) motorcycle  ";
     }
+
 }
