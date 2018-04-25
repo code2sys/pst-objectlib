@@ -23,4 +23,8 @@ class MotorcycleSpecFactory extends AbstractFactory
             "version_number", "value", "feature_name", "attribute_name", "type", "external_package_id", "motorcycle_id", "final_value", "override", "source", "hidden", "crs_attribute_id", "ordinal", "motorcyclespecgroup_id"
         );
     }
+
+    public function getForMotorcycle($motorcycle_id, $data_arrays = false) {
+        return $this->_subFetch("Select motorcyclespec.* from motorcyclespec join motorcyclspecgroup using (motorcyclespecgroup_id)", array("motorcycle_id" => $motorcycle_id), $data_arrays);
+    }
 }

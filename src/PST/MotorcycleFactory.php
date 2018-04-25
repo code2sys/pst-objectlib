@@ -39,4 +39,7 @@ class MotorcycleFactory extends AbstractFactory
         return "Select * from (Select motorcycle.*, motorcycle_category.name as category_name, motorcycle_type.name as type from motorcycle left join motorcycle_category on motorcycle.category = motorcycle_category.id left join motorcycle_type on motorcycle.vehicle_type = motorcycle_type.id) motorcycle  ";
     }
 
+    public function getCRSMatched($data_arrays = false) {
+        return $this->_subFetch("Select motorcycle.* from motorcycle where crs_trim_id > 0", array(), $data_arrays);
+    }
 }
