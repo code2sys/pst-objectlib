@@ -25,6 +25,6 @@ class MotorcycleSpecFactory extends AbstractFactory
     }
 
     public function getForMotorcycle($motorcycle_id, $data_arrays = false) {
-        return $this->_subFetch("Select motorcyclespec.* from motorcyclespec join motorcyclspecgroup using (motorcyclespecgroup_id)", array("motorcycle_id" => $motorcycle_id), $data_arrays);
+        return $this->_subFetch("Select motorcyclespec.* from motorcyclespec join motorcyclespecgroup using (motorcyclespecgroup_id)", array("motorcycle_id" => $motorcycle_id), $data_arrays);
     }
 }
