@@ -29,12 +29,17 @@ class MotorcycleFactory extends AbstractFactory
             "lightspeed_flag", "lightspeed_timestamp", "stock_status", "deleted",
             "customer_set_price", "customer_set_description", "customer_deleted",
             "lightspeed_deleted", "mdfeed", "mdfeed_deleted", "location_description", "mdrecord_recordid",
-            "mdfeed_flag", "customer_set_location_description"
+            "mdfeed_flag", "customer_set_location_description",
+            "customer_set_vin_number", "customer_set_mileage", "customer_set_color", "customer_set_call_on_price", "customer_set_destination_charge", "customer_set_condition", "customer_set_category", "customer_set_make", "customer_set_model", "customer_set_title", "customer_set_year"
         );
     }
 
     protected function _getQuery()
     {
         return "Select * from (Select motorcycle.*, motorcycle_category.name as category_name, motorcycle_type.name as type from motorcycle left join motorcycle_category on motorcycle.category = motorcycle_category.id left join motorcycle_type on motorcycle.vehicle_type = motorcycle_type.id) motorcycle  ";
+    }
+
+    public function getCRSMatched($data_arrays = false) {
+        return $this->_subFetch("Select motorcycle.* from motorcycle where crs_trim_id > 0", array(), $data_arrays);
     }
 }
