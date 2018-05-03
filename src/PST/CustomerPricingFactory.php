@@ -24,4 +24,8 @@ class CustomerPricingFactory extends AbstractFactory
         $stmt->execute();
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
+
+    protected function _getQuery() {
+        return "Select * from (Select customerpricing.*, IfNull(distributor.name, 'Default') as distributor_name from customerpricing left join distributor using (distributor_id)) customerpricing ";
+    }
 }
