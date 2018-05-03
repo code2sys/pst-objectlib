@@ -15,4 +15,13 @@ class CustomerPricingFactory extends AbstractFactory
             "user_id", "distributor_id", "pricing_rule", "amount"
         );
     }
+
+    public function fetchFrontEnd($user_id = null) {
+        $stmt = $this->dbh->prepare("Select customerpricing.*, IfNull(distributor.name as distributor_name, 'Default') from customerpricing left join distributor using (distributor_id) where customerpricing.user_id " . (is_null($user_id) ? " is null " : " = ? "));
+        if (!is_null($user_id)) {
+            $stmt->bindValue(1, $user_id);
+        }
+        $stmt->execute();
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
 }
