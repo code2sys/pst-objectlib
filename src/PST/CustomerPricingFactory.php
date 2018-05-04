@@ -26,7 +26,7 @@ class CustomerPricingFactory extends AbstractFactory
     }
 
     protected function _getQuery() {
-        return "Select * from (Select customerpricing.*, IfNull(distributor.name, 'Default') as distributor_name from customerpricing left join distributor using (distributor_id)) customerpricing ";
+        return "Select * from (Select IfNull(pricingtier.name, '') as pricing_tier, customerpricing.*, IfNull(distributor.name, 'Default') as distributor_name from customerpricing left join distributor using (distributor_id) left join pricingtier on customerpricing.pricingtier_id = pricingtier.pricingtier_id ) customerpricing ";
     }
 
     // Either it returns a record with the price field as well as the discount percentage in case it has to be adjusted out front, or it returns false.
