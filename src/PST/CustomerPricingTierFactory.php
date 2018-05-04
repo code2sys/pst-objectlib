@@ -14,4 +14,8 @@ class CustomerPricingTierFactory extends AbstractFactory
             "pricingtier_id", "user_id"
         );
     }
+
+    protected function _getQuery() {
+        return " Select * from (SElect customerpricingtier.*, pricingtier.name from customerpricingtier join pricingtier using (pricingtier_id)) customerpricingtier ";
+    }
 }
