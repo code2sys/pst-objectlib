@@ -17,7 +17,7 @@ class CustomerPricingFactory extends AbstractFactory
     }
 
     public function fetchFrontEnd($user_id = null) {
-        $stmt = $this->dbh->prepare("Select IfNull(pricingtier.name, '') as pricing_tier customerpricing.*, IfNull(distributor.name, 'Default') as distributor_name from customerpricing left join distributor using (distributor_id) left join pricingtier on customerpricing.pricingtier_id = pricingtier.pricingtier_id where customerpricing.user_id " . (is_null($user_id) ? " is null " : " = ? "));
+        $stmt = $this->dbh->prepare("Select IfNull(pricingtier.name, '') as pricing_tier, customerpricing.*, IfNull(distributor.name, 'Default') as distributor_name from customerpricing left join distributor using (distributor_id) left join pricingtier on customerpricing.pricingtier_id = pricingtier.pricingtier_id where customerpricing.user_id " . (is_null($user_id) ? " is null " : " = ? "));
         if (!is_null($user_id)) {
             $stmt->bindValue(1, $user_id);
         }
