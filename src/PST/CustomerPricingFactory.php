@@ -17,7 +17,7 @@ class CustomerPricingFactory extends AbstractFactory
     }
 
     public function fetchFrontEnd($user_id = null) {
-        $stmt = $this->dbh->prepare("Select IfNull(pricingtier.name, '') as pricing_tier, customerpricing.*, IfNull(distributor.name, 'Default') as distributor_name from customerpricing left join distributor using (distributor_id) left join pricingtier on customerpricing.pricingtier_id = pricingtier.pricingtier_id where customerpricing.user_id " . (is_null($user_id) ? " is null " : " = ? "));
+        $stmt = $this->dbh->prepare("Select IfNull(pricingtier.name, '') as pricing_tier, customerpricing.*, IfNull(distributor.name, 'All Distributors') as distributor_name from customerpricing left join distributor using (distributor_id) left join pricingtier on customerpricing.pricingtier_id = pricingtier.pricingtier_id where customerpricing.user_id " . (is_null($user_id) ? " is null " : " = ? "));
         if (!is_null($user_id)) {
             $stmt->bindValue(1, $user_id);
         }
@@ -26,7 +26,7 @@ class CustomerPricingFactory extends AbstractFactory
     }
 
     protected function _getQuery() {
-        return "Select * from (Select IfNull(pricingtier.name, '') as pricing_tier, customerpricing.*, IfNull(distributor.name, 'Default') as distributor_name from customerpricing left join distributor using (distributor_id) left join pricingtier on customerpricing.pricingtier_id = pricingtier.pricingtier_id ) customerpricing ";
+        return "Select * from (Select IfNull(pricingtier.name, '') as pricing_tier, customerpricing.*, IfNull(distributor.name, 'All Distributors') as distributor_name from customerpricing left join distributor using (distributor_id) left join pricingtier on customerpricing.pricingtier_id = pricingtier.pricingtier_id ) customerpricing ";
     }
 
     // Either it returns a record with the price field as well as the discount percentage in case it has to be adjusted out front, or it returns false.
