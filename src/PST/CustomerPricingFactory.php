@@ -17,7 +17,7 @@ class CustomerPricingFactory extends AbstractFactory
     }
 
     public function fetchFrontEnd($user_id = null) {
-        $stmt = $this->dbh->prepare("Select customerpricing.*, IfNull(distributor.name, 'Default') as distributor_name from customerpricing left join distributor using (distributor_id) where customerpricing.user_id " . (is_null($user_id) ? " is null " : " = ? "));
+        $stmt = $this->dbh->prepare("Select IfNull(pricingtier.name, '') as pricing_tier customerpricing.*, IfNull(distributor.name, 'Default') as distributor_name from customerpricing left join distributor using (distributor_id) left join pricingtier on customerpricing.pricingtier_id = pricingtier.pricingtier_id where customerpricing.user_id " . (is_null($user_id) ? " is null " : " = ? "));
         if (!is_null($user_id)) {
             $stmt->bindValue(1, $user_id);
         }
@@ -44,21 +44,24 @@ class CustomerPricingFactory extends AbstractFactory
 
     
         // Now, we need to get the available rules.
-        $match_query = array_map(function($x) {
-            return array(
-                "user_id" => null,
-                "distributor_id" => $x->get("distributor_id"),
-                "automatically_apply" => 1
-            );
-        }, $partvariations);
+        // $match_query = array_map(function($x) {
+        //     return array(
+        //         "user_id" => null,
+        //         "distributor_id" => $x->get("distributor_id"),
+        //         "automatically_apply" => 1
+        //     );
+        // }, $partvariations);
 
-        array_unshift($match_query, array(
-            "user_id" => null,
-            "distributor_id" => null,
-            "automatically_apply" => 1
-        ));
+        // array_unshift($match_query, array(
+        //     "user_id" => null,
+        //     "distributor_id" => null,
+        //     "automatically_apply" => 1
+        // ));
 
-        $always_rules = $this->master()->customerpricing()->fetchList($match_query);
+        // $always_rules = $this->master()->customerpricing()->fetchList($match_query);
+        // JLB 05-04-18
+        // Per Brandt, this does not apply, so hiding for now.
+        $always_rules = array();
 
         // Next, we need to get the pricing tiers to which this user belongs
         $customerpricingtiers = $this->master()->customerpricingtier()->fetch(array(
