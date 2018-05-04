@@ -111,17 +111,22 @@ class CustomerPricingFactory extends AbstractFactory
 
         // Well, now, we have to score each one.
         $retail = $partnumber->get("price");
-        $price = $retail;
+        $price = 0;
         $rule = null;
         $cost = $partnumber->get("cost");
         
         // Macgyver said this was a safety check.
         // NOTE: Safety check confirming that CUSTOMER PRICE > DEALER*1.10 on ALL ITEMS IN CART; if not then price is marked up to COST*1.09
         foreach ($partvariations as $pv) {
-            foreach ($bundled_rules )
+            foreach ($bundled_rules as $br) {
+                // We should attempt to score this, right?
+                $br->scorePV($pv, $price, $retail, $cost, $rule);
+            }
         }
 
-        
+        if ($price == 0) {
+            $price = $partnumber->get("sale");
+        }
 
         return array($price, $rule);
     }
