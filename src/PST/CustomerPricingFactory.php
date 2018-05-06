@@ -113,10 +113,10 @@ class CustomerPricingFactory extends AbstractFactory
         }
 
         // Well, now, we have to score each one.
-        $retail = $partnumber->get("price");
+        $retail = $partnumberObj->get("price");
         $price = 0;
         $rule = null;
-        $cost = $partnumber->get("cost");
+        $cost = $partnumberObj->get("cost");
         
         // Macgyver said this was a safety check.
         // NOTE: Safety check confirming that CUSTOMER PRICE > DEALER*1.10 on ALL ITEMS IN CART; if not then price is marked up to COST*1.09
@@ -128,7 +128,7 @@ class CustomerPricingFactory extends AbstractFactory
         }
 
         if ($price == 0) {
-            $price = $partnumber->get("sale");
+            $price = $partnumberObj->get("sale");
         }
 
         return array($price, $rule);
