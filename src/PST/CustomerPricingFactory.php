@@ -9,14 +9,8 @@ use \PDOException;
 class CustomerPricingFactory extends AbstractFactory
 {
     public function remove($id) {
-        $obj = $this->get($id);
-
         parent::remove($id);
-
-        if (!is_null($obj)) {
-            // Clean up work: Is there a pricing tier that no longer applies?
-            $this->master()->pricingtier()->cleanup();
-        }
+        $this->mater()->pricingtier()->cleanup();
     }
 
     public function __construct($dbh, $master_factory, $obj = "PST\\CustomerPricingObject", $table = "customerpricing", $id = "customerpricing_id")
