@@ -10,7 +10,7 @@ class CustomerPricingFactory extends AbstractFactory
 {
     public function remove($id) {
         parent::remove($id);
-        $this->mater()->pricingtier()->cleanup();
+        $this->master()->pricingtier()->cleanup();
     }
 
     public function __construct($dbh, $master_factory, $obj = "PST\\CustomerPricingObject", $table = "customerpricing", $id = "customerpricing_id")
