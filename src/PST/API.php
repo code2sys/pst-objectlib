@@ -32,8 +32,8 @@ class API extends  AbstractSuperFactory {
             "distributor" => "DistributorFactory",
             "customerpricingtier" => "CustomerPricingTierFactory",
             "pricingtier" => "PricingTierFactory",
-            "partnumber" => "PartNumberFactory",
-            "partvariation" => "PartVariationFactory",
+            "partnumber" => "PartnumberFactory",
+            "partvariation" => "PartvariationFactory",
         );
     }
 
