@@ -14,4 +14,9 @@ class PricingTierFactory extends AbstractFactory
             "name"
         );
     }
+
+    public function cleanup() {
+        $stmt = $this->dbh->prepare("Delete from pricingtier where pricingtier_id not in (Select pricingtier_id from customerpricing");
+        $stmt->execute();
+    }
 }
