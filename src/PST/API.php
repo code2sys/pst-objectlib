@@ -27,8 +27,36 @@ class API extends  AbstractSuperFactory {
             "config" => "ConfigFactory",
             "motorcycleenquiry" => "MotorcycleEnquiryFactory",
             "motorcyclespec" => "MotorcycleSpecFactory",
-            "motorcyclespecgroup" => "MotorcycleSpecGroupFactory"
+            "motorcyclespecgroup" => "MotorcycleSpecGroupFactory",
+            "customerpricing" => "CustomerPricingFactory",
+            "distributor" => "DistributorFactory",
+            "customerpricingtier" => "CustomerPricingTierFactory",
+            "pricingtier" => "PricingTierFactory",
+            "partnumber" => "PartnumberFactory",
+            "partvariation" => "PartvariationFactory",
         );
+    }
+
+    public function partnumber() {
+        return $this->fetch("partnumber");
+    }
+    public function partvariation() {
+        return $this->fetch("partvariation");
+    }
+
+    public function customerpricingtier() {
+        return $this->fetch("customerpricingtier");
+    }
+    public function pricingtier() {
+        return $this->fetch("pricingtier");
+    }
+
+
+    public function customerpricing() {
+        return $this->fetch("customerpricing");
+    }
+    public function distributor() {
+        return $this->fetch("distributor");
     }
 
     public function motorcyclespec() {
