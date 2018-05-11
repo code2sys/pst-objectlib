@@ -34,8 +34,14 @@ class API extends  AbstractSuperFactory {
             "pricingtier" => "PricingTierFactory",
             "partnumber" => "PartnumberFactory",
             "partvariation" => "PartvariationFactory",
+            "lightspeedpart" => "LightspeedPartFactory"
         );
     }
+
+    public function lightspeedpart() {
+        return $this->fetch("lightspeedpart");
+    }
+
 
     public function partnumber() {
         return $this->fetch("partnumber");
