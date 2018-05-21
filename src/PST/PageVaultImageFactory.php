@@ -19,7 +19,14 @@ class PageVaultImageFactory extends AbstractFactory
     {
         parent::__construct($dbh, $master_factory, $obj, $table, $id);
         $this->_datacols = array(
-            "image_name"< "description", "priority_number", "page_section_id"
+            "image_name", "description", "priority_number", "page_section_id"
         );
+    }
+
+    public function getNextOrdinal($page_section_id) {
+        $stmt = $this->dbh->prepare("Select max(`priority_number`) from page_vault_image where page_section_id = ?");
+        $stmt->bindValue(1, $page_section_id);
+        $stmt->execute();
+        return 1 + $stmt->fetch(PDO::FETCH_COLUMN);
     }
 }
