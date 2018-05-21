@@ -17,6 +17,8 @@ class API extends  AbstractSuperFactory {
     public function __construct($dbh) {
         parent::__construct($dbh);
         $this->known_factories = array(
+            "pagevaultimage" => "PageVaultImageFactory",
+            "pagecalendarevent" => "PageCalendarEventFactory",
             "vseptprospect" => "VSeptProspectFactory",
             "mdfeed" => "MDFeedFactory",
             "mdrecord" => "MDRecordFactory",
@@ -40,6 +42,12 @@ class API extends  AbstractSuperFactory {
 
     public function lightspeedpart() {
         return $this->fetch("lightspeedpart");
+    }
+    public function pagevaultimage() {
+        return $this->fetch("pagevaultimage");
+    }
+    public function pagecalendarevent() {
+        return $this->fetch("pagecalendarevent");
     }
 
 
