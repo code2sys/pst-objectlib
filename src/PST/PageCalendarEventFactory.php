@@ -19,7 +19,7 @@ class PageCalendarEventFactory extends AbstractFactory
     {
         parent::__construct($dbh, $master_factory, $obj, $table, $id);
         $this->_datacols = array(
-            "start", "end", "title", "description", "url", "address1", "address2", "state", "zip", "city"
+            "start", "end", "title", "description", "url", "address1", "address2", "state", "zip", "city", "page_section_id"
         );
     }
 }
