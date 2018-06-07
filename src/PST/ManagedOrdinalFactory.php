@@ -25,6 +25,11 @@ abstract class ManagedOrdinalFactory extends AbstractFactory
         return in_array($this->ordinal_column, $this->_datacols);
     }
 
+    public function fetchOrdered($kvpArray = array(), $data_array = false, $limit = 0)
+    {
+        $query = $this->_getQuery();
+        return $this->_subFetch($query, $kvpArray, $data_array, array(), $limit, " ORDER BY " . $this->ordinal_column);
+    }
 
     public function update($id, $kvpArray, $trigger_alert = true)
     {
