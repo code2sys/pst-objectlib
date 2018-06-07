@@ -522,4 +522,13 @@ abstract class AbstractFactory
 
     }
 
+    // JLB 06-07-18
+    // Transplanted from JLB-AV to manage ordinals better
+
+    public function hasOrdinal() {
+        return in_array("Ordinal", $this->_datacols);
+    }
+
+
+
 }
