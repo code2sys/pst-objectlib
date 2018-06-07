@@ -20,5 +20,6 @@ class PartImageFactory extends ManagedOrdinalFactory
         $this->_datacols = array(
             "part_id", "original_filename", "path", "description", "thumbnail", "spritesheet", "spriteurl", "spritex", "spritey", "spritewidth", "spriteheight", "massupdate", "mx", "external_url", "ordinal"
         );
+        $this->ordinal_column = "ordinal";
     }
 }
