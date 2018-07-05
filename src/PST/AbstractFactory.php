@@ -469,7 +469,7 @@ abstract class AbstractFactory
 
         curl_setopt( $ch, CURLOPT_URL, $url );
         curl_setopt( $ch, CURLOPT_POST, true );
-        $headers["Content-Type"] = "text/html";
+        $headers["Content-Type"] = "text/xml";
         curl_setopt( $ch, CURLOPT_HTTPHEADER, $headers);
         curl_setopt( $ch, CURLOPT_RETURNTRANSFER, true );
         curl_setopt( $ch, CURLOPT_POSTFIELDS, $xml_string );
@@ -521,5 +521,14 @@ abstract class AbstractFactory
         }
 
     }
+
+    // JLB 06-07-18
+    // Transplanted from JLB-AV to manage ordinals better
+
+    public function hasOrdinal() {
+        return in_array("Ordinal", $this->_datacols);
+    }
+
+
 
 }
