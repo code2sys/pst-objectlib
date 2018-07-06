@@ -98,7 +98,7 @@ class HLSMXmlFeedRowObject extends AbstractObject {
             $partvariation_id = $partvariation->id();
 
             // We have to increment the local dealer inventory...
-            $this->factory()->master()->partvariation()->setDealerInventory($partvariation_id, $this->get("qty"), $this->get("hlsm_price"), $this->get("hlsm_price"));
+            $partvariation->addDealerInventory($this->get("qty"), $this->get("hlsm_price"), $this->get("hlsm_price"));
 
             // make a single question
             $question = $this->_fetchGetAdd("partquestion", array(

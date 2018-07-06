@@ -17,6 +17,7 @@ class API extends  AbstractSuperFactory {
     public function __construct($dbh) {
         parent::__construct($dbh);
         $this->known_factories = array(
+            "partdealervariation" => "PartDealerVariationFactory",
             "partpartnumber" => "PartPartNumberFactory",
             "machinetype" => "MachineTypeFactory",
             "make" => "MakeFactory",
@@ -57,6 +58,10 @@ class API extends  AbstractSuperFactory {
 
     public function partpartnumber() {
         return $this->fetch("partpartnumber");
+    }
+
+    public function partdealervariation() {
+        return $this->fetch("partdealervariation");
     }
 
     public function machinetype() {
