@@ -40,7 +40,8 @@ class HLSMXmlFeedObject extends AbstractObject {
         $this->save();
         $uniqid = uniqid(gethostname());
 
-        foreach ($document->childNodes AS $item) {
+        $x = $document->documentElement;
+        foreach ($x->childNodes AS $item) {
             $clean_node_name = strtolower(trim($item->nodeName));
 
             if ($clean_node_name == "hlmsno") {
