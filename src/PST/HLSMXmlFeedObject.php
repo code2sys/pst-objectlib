@@ -58,7 +58,7 @@ class HLSMXmlFeedObject extends AbstractObject {
                 // OK, we are expecting to find a field...
                 $field_name_number1 = substr($clean_node_name, -1 * strlen("" . $item_count));
 //                error_log("Field " . $clean_node_name . " number " . $field_name_number1);
-                if (intVal($field_name_number1) != $current_row) {
+                if (intVal($field_name_number1) != $current_row || is_null($current_row_object)) {
                     if (!is_null($current_row_object)) {
                         $current_row_object->save();
                     }
