@@ -43,6 +43,9 @@ class HLSMXmlFeedObject extends AbstractObject {
         $x = $document->documentElement;
         foreach ($x->childNodes AS $item) {
             $clean_node_name = strtolower(trim($item->nodeName));
+            if ($clean_node_name == "#text") {
+                continue; // just whitespace..
+            }
 
             if ($clean_node_name == "hlmsno") {
                 $this->set("hlmsno", $item->nodeValue);
