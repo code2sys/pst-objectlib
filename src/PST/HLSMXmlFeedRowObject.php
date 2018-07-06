@@ -83,9 +83,9 @@ class HLSMXmlFeedRowObject extends AbstractObject {
             $partvariation = $this->_fetchGetAdd("partvariation", array(
                 "distributor_id" => $distributor_id,
                 "partnumber_id" => $partnumber_id,
-                "part_number" => $this->get("part_num")
+                "part_number" => $this->get("partnum")
             ), array(
-                "part_number" => $this->get("part_num"),
+                "part_number" => $this->get("partnum"),
                 "partnumber_id" => $partnumber_id,
                 "distributor_id" => $distributor_id,
                 "quantity_available" => 0,
@@ -93,7 +93,7 @@ class HLSMXmlFeedRowObject extends AbstractObject {
                 "price" => $this->get("hlsm_price"),
                 "protect" => 1,
                 "quantity_last_updated" => date("Y-m-d H:i:s"),
-                "clean_part_number" => preg_replace("/[^a-z0-9]/i", "", $this->get("part_num"))
+                "clean_part_number" => preg_replace("/[^a-z0-9]/i", "", $this->get("partnum"))
             ));
             $partvariation_id = $partvariation->id();
 
