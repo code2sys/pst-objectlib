@@ -47,8 +47,8 @@ class HLSMXmlFeedObject extends AbstractObject {
                 continue; // just whitespace..
             }
 
-            if ($clean_node_name == "hlmsno") {
-                $this->set("hlmsno", $item->nodeValue);
+            if ($clean_node_name == "hlsmno") {
+                $this->set("hlsmno", $item->nodeValue);
                 $valid = true;
             } else if ($clean_node_name == "itemcnt") {
                 $item_count = $item->nodeValue;
