@@ -61,7 +61,7 @@ class HLSMXmlFeedObject extends AbstractObject {
                     if (!is_null($current_row_object)) {
                         $current_row_object->save();
                     }
-
+                    $current_row_object = null;
                     $current_row = $field_name_number1;
                 }
 
