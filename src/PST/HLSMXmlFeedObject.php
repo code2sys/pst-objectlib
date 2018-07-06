@@ -77,7 +77,6 @@ class HLSMXmlFeedObject extends AbstractObject {
                     throw new \Exception("Unrecognized field name for row $current_row: " . $clean_node_name);
                 }
             }
-            print $item->nodeName . " = " . $item->nodeValue . "<br>";
         }
 
         $this->set("converted", 2);
