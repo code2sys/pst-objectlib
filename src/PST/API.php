@@ -17,6 +17,9 @@ class API extends  AbstractSuperFactory {
     public function __construct($dbh) {
         parent::__construct($dbh);
         $this->known_factories = array(
+            "hlsmxmlfeed" => "HLSMXmlFeedFactory",
+            "hlsmxmlfeedrow" => "HLSMXmlFeedRowFactory",
+            "taxes" => "TaxesFactory",
             "pagevaultimage" => "PageVaultImageFactory",
             "pagecalendarevent" => "PageCalendarEventFactory",
             "vseptprospect" => "VSeptProspectFactory",
@@ -39,6 +42,14 @@ class API extends  AbstractSuperFactory {
             "lightspeedpart" => "LightspeedPartFactory",
             "partimage" => "PartImageFactory"
         );
+    }
+
+    public function hlsmxmlfeedrow() {
+        return $this->fetch("hlsmxmlfeedrow");
+    }
+
+    public function hlsmxmlfeed() {
+        return $this->fetch("hlsmxmlfeed");
     }
 
     public function partimage() {
