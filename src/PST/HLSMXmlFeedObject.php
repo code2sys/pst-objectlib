@@ -57,7 +57,6 @@ class HLSMXmlFeedObject extends AbstractObject {
             } else {
                 // OK, we are expecting to find a field...
                 $field_name_number1 = substr($clean_node_name, -1 * strlen("" . $item_count));
-                error_log("Field " . $clean_node_name . " number " . $field_name_number1);
                 if (intVal($field_name_number1) != $current_row ) {
                     if (!is_null($current_row_object)) {
                         $current_row_object->save();
@@ -72,7 +71,6 @@ class HLSMXmlFeedObject extends AbstractObject {
                         "number" => $current_row,
                         "uniqid" => $uniqid
                     ));
-                    error_log("Added current row object " . $current_row_object->id());
                 }
 
                 $field_name = substr($clean_node_name, 0, strlen($clean_node_name) - strlen("_" . $item_count));
