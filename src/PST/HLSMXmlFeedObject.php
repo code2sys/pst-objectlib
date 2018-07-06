@@ -12,6 +12,26 @@ use \PDO;
 use \PDOException;
 
 class HLSMXmlFeedObject extends AbstractObject {
+
+    /*
+     * Return this:
+     *                     $_SESSION['cart'][$pn["partnumber"]] = array(
+                        "part_id" => $pn["part_id"],
+                        "display_name" => $pn["name"],
+                        "images" => null,
+                        "partnumber" => $pn["partnumber"],
+                        "qty" => $pn["qty"],
+                        "price" => $pn["price"],
+                        "type" => "cart"
+                    );
+     */
+    public function getPartNumbersForCart() {
+        $stmt = $this->dbh->prepare("Select partpartnumber.part_id, partnumber.partnumber, part.name, hlsmxmlfeedrow.qty, hlsmxmlfeedrow.hlsm_price as price from hlsmxmlfeedrow join partvariation using (partvariation_id) join partnumber using (partnumber_id) join partpartnumber using (partnumber_id) join part using (part_id) where hlsmxmlfeedrow.hlsmxmlfeed_id = ?");
+        $stmt->bindValue(1, $this->id());
+        $stmt->execute();
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
     public function __construct($dbh, $id, $data, $factory)
     {
         parent::__construct($dbh, $id, $data, $factory);
