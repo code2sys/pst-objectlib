@@ -72,6 +72,7 @@ class HLSMXmlFeedObject extends AbstractObject {
                         "number" => $current_row,
                         "uniqid" => $uniqid
                     ));
+                    error_log("Added current row object " . $current_row_object->id());
                 }
 
                 $field_name = substr($clean_node_name, 0, strlen($clean_node_name) - strlen("_" . $item_count));
