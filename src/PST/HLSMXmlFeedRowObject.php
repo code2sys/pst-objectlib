@@ -86,6 +86,7 @@ class HLSMXmlFeedRowObject extends AbstractObject {
                 "part_number" => $this->get("partnum")
             ), array(
                 "part_number" => $this->get("partnum"),
+                "manufacturer_part_number" => $this->get("partnum"),
                 "partnumber_id" => $partnumber_id,
                 "distributor_id" => $distributor_id,
                 "quantity_available" => 0,
