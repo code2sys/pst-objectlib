@@ -17,6 +17,17 @@ class API extends  AbstractSuperFactory {
     public function __construct($dbh) {
         parent::__construct($dbh);
         $this->known_factories = array(
+            "partpartnumber" => "PartPartNumberFactory",
+            "machinetype" => "MachineTypeFactory",
+            "make" => "MakeFactory",
+            "model" => "ModelFactory",
+            "partnumbermodel" => "PartNumberModelFactory",
+            "partnumberpartquestion" => "PartNumberPartQuestionFactory",
+            "partquestionanswer" => "PartQuestionAnswerFactory",
+            "partquestion" => "PartQuestionFactory",
+
+            "part" => "PartFactory",
+            "manufacturer" => "ManufacturerFactory",
             "hlsmxmlfeed" => "HLSMXmlFeedFactory",
             "hlsmxmlfeedrow" => "HLSMXmlFeedRowFactory",
             "taxes" => "TaxesFactory",
@@ -42,6 +53,46 @@ class API extends  AbstractSuperFactory {
             "lightspeedpart" => "LightspeedPartFactory",
             "partimage" => "PartImageFactory"
         );
+    }
+
+    public function partpartnumber() {
+        return $this->fetch("partpartnumber");
+    }
+
+    public function machinetype() {
+        return $this->fetch("machinetype");
+    }
+
+    public function make() {
+        return $this->fetch("make");
+    }
+
+    public function model() {
+        return $this->fetch("model");
+    }
+
+    public function partnumbermodel() {
+        return $this->fetch("partnumbermodel");
+    }
+
+    public function partnumberpartquestion() {
+        return $this->fetch("partnumberpartquestion");
+    }
+
+    public function partquestionanswer() {
+        return $this->fetch("partquestionanswer");
+    }
+
+    public function partquestion() {
+        return $this->fetch("partquestion");
+    }
+
+    public function part() {
+        return $this->fetch("part");
+    }
+
+    public function manufacturer() {
+        return $this->fetch("manufacturer");
     }
 
     public function hlsmxmlfeedrow() {
