@@ -25,7 +25,7 @@ class HLSMXmlFeedRowObject extends AbstractObject {
     protected function _fetchGetAdd($factory, $queryKVP, $addKVP) {
         $hlsm = $this->factory()->master()->$factory()->fetch($queryKVP);
         if (count($hlsm) == 0) {
-            $hlsm = $this->factory()->master()->distributor()->add($addKVP);
+            $hlsm = $this->factory()->master()->$factory()->add($addKVP);
         } else {
             $hlsm = $hlsm[0];
         }
