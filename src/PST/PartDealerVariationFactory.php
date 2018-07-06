@@ -14,7 +14,7 @@ use \PDOException;
 
 class PartDealerVariationFactory extends AbstractFactory
 {
-    public function __construct($dbh, $master_factory, $obj = "PST\\PartvariationObject", $table = "partvariation", $id = "partvariation_id")
+    public function __construct($dbh, $master_factory, $obj = "PST\\PartvariationObject", $table = "partdealervariation", $id = "partvariation_id")
     {
         parent::__construct($dbh, $master_factory, $obj, $table, $id);
         $this->_datacols = array(
