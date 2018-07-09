@@ -35,8 +35,9 @@ class HLSMXmlFeedRowObject extends AbstractObject {
     public function convertToPartVariation() {
         if (is_null($this->get("partvariation_id")) || $this->get("partvariation_id") == 0) {
             // First, get the HLSM distributor, if it exists.
-            $hlsm = $this->_fetchGetAdd("distributor", array("name" => "HLSM"), array(
-                "name" => "HLSM",
+            // 07-08-18: Brandt wants this changed to be the OEM themselves.
+            $hlsm = $this->_fetchGetAdd("distributor", array("name" => $this->get("make")), array(
+                "name" => $this->get("make"),
                 "customer_distributor" => 1
             ));
             $distributor_id = $hlsm->id();
@@ -59,7 +60,8 @@ class HLSMXmlFeedRowObject extends AbstractObject {
                 "description" => $this->get("hlsm_desc"),
                 "mx" => 0,
                 "manufacturer_id" => $manufacturer_id,
-                "protect" => 1
+                "protect" => 1,
+                "hlsm" => 1
             ));
             $part_id = $part->id();
 
@@ -94,12 +96,15 @@ class HLSMXmlFeedRowObject extends AbstractObject {
                 "price" => $this->get("hlsm_price"),
                 "protect" => 1,
                 "quantity_last_updated" => date("Y-m-d H:i:s"),
-                "clean_part_number" => preg_replace("/[^a-z0-9]/i", "", $this->get("partnum"))
+                "clean_part_number" => preg_replace("/[^a-z0-9]/i", "", $this->get("partnum")),
+                "from_hlsm" => 1
             ));
             $partvariation_id = $partvariation->id();
 
-            // We have to increment the local dealer inventory...
-            $partvariation->addDealerInventory($this->get("qty"), $this->get("hlsm_price"), $this->get("hlsm_price"));
+            // JLB 07-08-18
+            // It is my understanding Brandt no longer wants this.
+//            // We have to increment the local dealer inventory...
+//            $partvariation->addDealerInventory($this->get("qty"), $this->get("hlsm_price"), $this->get("hlsm_price"));
 
             // make a single question
             $question = $this->_fetchGetAdd("partquestion", array(
