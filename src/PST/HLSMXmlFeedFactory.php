@@ -18,7 +18,7 @@ class HLSMXmlFeedFactory extends AbstractFactory
     {
         parent::__construct($dbh, $master_factory, $obj, $table, $id);
         $this->_datacols = array(
-            "hlmsno", "item_count", "converted", "raw_xml", "claimed", "order_id"
+            "hlsmno", "item_count", "converted", "raw_xml", "claimed", "order_id"
         );
     }
 }
