@@ -74,6 +74,8 @@ class HLSMXmlFeedObject extends AbstractObject {
                 $item_count = $item->nodeValue;
                 $this->set("item_count", $item_count);
                 $valid = true;
+            } else if ($clean_node_name == "dirid") {
+                continue; // just skip this one.
             } else {
                 // OK, we are expecting to find a field...
                 $field_name_number1 = substr($clean_node_name, -1 * strlen("" . $item_count));
@@ -94,10 +96,10 @@ class HLSMXmlFeedObject extends AbstractObject {
                 }
 
                 $field_name = substr($clean_node_name, 0, strlen($clean_node_name) - strlen("_" . $item_count));
-                if (in_array($field_name, array("qty", "partnum", "hlsm_desc", "make", "hlsm_price", "hlsm_year", "hlsm_make", "hlsm_model", "hlsm_cat", "hlsm_dealer", "hlsm_showprice", "hlsm_ip_address"))) {
+                if (in_array($field_name, array("qty", "partnum", "hlsm_desc", "make", "hlsm_price", "hlsm_year", "hlsm_make", "hlsm_model", "hlsm_cat", "hlsm_dealer", "hlsm_showprice", "hlsm_ip_address", "dirid"))) {
                     $current_row_object->set($field_name, $item->nodeValue);
                 } else {
-                    throw new \Exception("Unrecognized field name for row $current_row: " . $clean_node_name);
+                    error_log("HLSMXMLFeed: Unrecognized field name for row $current_row of " . $this->id()  . ": " . $clean_node_name);
                 }
             }
         }
