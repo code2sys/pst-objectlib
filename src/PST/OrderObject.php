@@ -38,7 +38,7 @@ class OrderObject extends AbstractObject
         }
 
         // add the tracking ID
-        $ship_tracking_code = $this->get('ship_tracking_code');
+        $ship_tracking_code = trim($this->get('ship_tracking_code'));
         if ($ship_tracking_code == "") {
             $ship_tracking_code = array();
         } else {
@@ -47,7 +47,7 @@ class OrderObject extends AbstractObject
         $ship_tracking_code[] = array(
             $carrier, $tracking_number
         );
-        $this->set($ship_tracking_code, json_encode($ship_tracking_code));
+        $this->set("ship_tracking_code", json_encode($ship_tracking_code));
         $this->save();
 
         // Is the whole thing shipped?
