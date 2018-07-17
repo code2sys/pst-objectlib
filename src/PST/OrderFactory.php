@@ -48,6 +48,9 @@ class OrderFactory extends AbstractFactory
 
     // These should show up in the lightspeed feed...
     public function introspectLightspeed() {
+        // You have to introspect those parts..
+        $this->master()->orderproduct()->introspectLightspeed();
+
         // First, are there any of these that are canceled?
         $stmt = $this->dbh->prepare("Update `order` join `order_status` on `order`.id = order_status.order_id set `order`.cancel_to_lightspeed = 1 where order_status.status = 'Refunded' and `order`.cancel_to_lightspeed = 0");
         $stmt->execute();
@@ -55,5 +58,6 @@ class OrderFactory extends AbstractFactory
         // Now, we should then be looking for Approved that is not shipped/complete, is not Partially Shipped, is not Declined, is not Refunded.
         $stmt = $this->dbh->prepare("Update `order` set `order`.pending_to_lightspeed = 1 where `order`.pending_to_lightspeed = 0 and `order`.cancel_to_lightspeed = 0 and `order`.id in (select order_id from order_status where status = 'Approved') and `order`.id not in (select order_id from order_status where status in ('Refunded', 'Shipped/Complete', 'Declined', 'Returned', 'Partially Shipped'))");
         $stmt->execute();
+
     }
 }
