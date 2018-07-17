@@ -35,7 +35,7 @@ abstract class AbstractFactory
     }
 
     protected function _simpleQuery() {
-        return "Select * from " . $this->table;
+        return "Select * from `" . $this->table . "`";
     }
 
     public function simpleQuery($kvpArray, $fetch_as_arr = false) {
@@ -43,7 +43,7 @@ abstract class AbstractFactory
     }
 
     protected function _simpleCountQuery() {
-        return "Select count(*) as cnt from " . $this->table;
+        return "Select count(*) as cnt from `" . $this->table . "`";
     }
 
     public function simpleCount($kvpArray = array()) {
@@ -69,7 +69,7 @@ abstract class AbstractFactory
     public function bulkInsert($columns, $rows, $id = 0) {
         $question_marks = "(" . $this->placeholders("?", count($columns)) . ")";
 
-        $query = "Insert ignore into " . $this->table . " (" . implode($columns, ", ") . ") values " . $this->placeholders($question_marks, count($rows));
+        $query = "Insert ignore into `" . $this->table . "` (" . implode($columns, ", ") . ") values " . $this->placeholders($question_marks, count($rows));
 
         $values = array();
         foreach ($rows as $row) {
@@ -142,7 +142,7 @@ abstract class AbstractFactory
     }
 
     protected function _getQuery() {
-        return "Select * from " . $this->table;
+        return "Select * from `" . $this->table . "`";
     }
 
     public function __construct($dbh, $master_factory, $objclass, $table = "", $table_id = "") {
@@ -155,7 +155,7 @@ abstract class AbstractFactory
     }
 
     public function get($id, $obj = true) {
-        $stmt = $this->dbh->prepare(sprintf($this->_getQuery() . " where %s.%s = %d limit 1", $this->table, $this->table_id, $id));
+        $stmt = $this->dbh->prepare(sprintf($this->_getQuery() . " where `%s`.%s = %d limit 1", $this->table, $this->table_id, $id));
         $stmt->execute();
         $rec = $stmt->fetch(PDO::FETCH_ASSOC);
 
@@ -177,7 +177,7 @@ abstract class AbstractFactory
      * @param $id
      */
     public function remove($id) {
-        $stmt = $this->dbh->prepare(sprintf("Delete from %s where %s = %d limit 1", $this->table, $this->table_id, $id));
+        $stmt = $this->dbh->prepare(sprintf("Delete from `%s` where %s = %d limit 1", $this->table, $this->table_id, $id));
         $stmt->execute();
     }
 
@@ -203,7 +203,7 @@ abstract class AbstractFactory
             $values[] = $v;
         }
 
-        $stmt = $this->dbh->prepare("Insert into " . $this->table . "(" . $keys . ") VALUES ( " . $value_string . ") ON DUPLICATE KEY UPDATE $duplicate_string");
+        $stmt = $this->dbh->prepare("Insert into `" . $this->table . "` (" . $keys . ") VALUES ( " . $value_string . ") ON DUPLICATE KEY UPDATE $duplicate_string");
         $stmt->execute($values);
         $id = $this->dbh->lastInsertId();
 
@@ -238,7 +238,7 @@ abstract class AbstractFactory
 
 
         // if we are still here...
-        $query = "Update " . $this->table . " SET $value_string " . ($where_string != "" ? " WHERE " : "") . $where_string;
+        $query = "Update `" . $this->table . "` SET $value_string " . ($where_string != "" ? " WHERE " : "") . $where_string;
         $stmt = $this->dbh->prepare($query);
         $k = 1;
         foreach ($values as $v) {
@@ -287,7 +287,7 @@ abstract class AbstractFactory
         if (count($values) > 0) {
             $values[] = $id;
 
-            $stmt = $this->dbh->prepare("Update " . $this->table . " SET " . $value_string . " WHERE " . $this->table_id . " = ? limit 1");
+            $stmt = $this->dbh->prepare("Update `" . $this->table . "` SET " . $value_string . " WHERE " . $this->table_id . " = ? limit 1");
             $stmt->execute($values);
         }
 
@@ -361,7 +361,7 @@ abstract class AbstractFactory
     }
 
     public function fetchCount($kvpArray = array()) {
-        $query = "Select count(*) x from " . $this->table;
+        $query = "Select count(*) x from `" . $this->table . "`";
         $result = $this->_subFetch($query, $kvpArray, true);
         return count($result) ? $result[0]['x'] : 0;
     }
@@ -437,7 +437,7 @@ abstract class AbstractFactory
         }
 
         if (count($values) > 0) {
-            $stmt = $this->dbh->prepare("Update " . $this->table . " SET " . $value_string . " WHERE " . $this->table_id . " in (" . implode(",", array_map("intVal", $idArray)) . ")" );
+            $stmt = $this->dbh->prepare("Update `" . $this->table . "` SET " . $value_string . " WHERE " . $this->table_id . " in (" . implode(",", array_map("intVal", $idArray)) . ")" );
             $stmt->execute($values);
         }
 
@@ -445,7 +445,7 @@ abstract class AbstractFactory
 
     public function deleteMatchingNewer($kvpArray, $timestamp) {
         $values = array($timestamp);
-        $stmt = "Delete from " . $this->table . " where created > ? ";
+        $stmt = "Delete from `" . $this->table . "` where created > ? ";
         foreach ($kvpArray as $k => $v) {
             $stmt .= " AND $k = ? ";
             $values[] = $v;
