@@ -108,4 +108,25 @@ class OrderObject extends AbstractObject
 
     }
 
+    public function void($date, $reason) {
+        // Get the parts; mark them as refunded if not shipped
+        $matches = $this->factory()->master()->orderProduct()->fetch(array(
+            "order_id" => $this->id()
+        ));
+
+        foreach ($matches as $m) {
+            if ($m->get("status") != "Shipped") {
+                $m->set("status", "Refunded");
+                $m->save();
+            }
+        }
+
+        // Mark the order itself as refunded
+        $this->factory()->master()->orderStatus()->add(array(
+            "order_id" => $this->id(),
+            "status" => "Refunded",
+            "datetime" => strtotime($date),
+            "notes" => "Lightspeed: $reason"
+        ));
+    }
 }
