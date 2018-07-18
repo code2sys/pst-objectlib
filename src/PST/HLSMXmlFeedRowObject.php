@@ -81,7 +81,6 @@ class HLSMXmlFeedRowObject extends AbstractObject {
                 "price" => $this->get("hlsm_price"),
                 "cost" => $this->get("hlsm_cost"),
                 "sale" => $this->get("hlsm_price"),
-                "dealer_sale" => $this->get("hlsm_price"),
                 "manufacturer_id" => $manufacturer_id,
                 "universalfit" => $this->get("hlms_model") == "-" ? 1 : 0,
                 "protect" => 1,
