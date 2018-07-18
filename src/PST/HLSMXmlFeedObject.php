@@ -26,7 +26,7 @@ class HLSMXmlFeedObject extends AbstractObject {
                     );
      */
     public function getPartNumbersForCart() {
-        $stmt = $this->dbh->prepare("Select partpartnumber.part_id, partnumber.partnumber, part.name, hlsmxmlfeedrow.qty, hlsmxmlfeedrow.hlsm_price as price from hlsmxmlfeedrow join partvariation using (partvariation_id) join partnumber using (partnumber_id) join partpartnumber using (partnumber_id) join part using (part_id) where hlsmxmlfeedrow.hlsmxmlfeed_id = ?");
+        $stmt = $this->dbh->prepare("Select partpartnumber.part_id, partnumber.partnumber, part.name, hlsmxmlfeedrow.qty, hlsmxmlfeedrow.hlsm_price as price, hlsmxmlfeedrow.hlsm_cost as cost from hlsmxmlfeedrow join partvariation using (partvariation_id) join partnumber using (partnumber_id) join partpartnumber using (partnumber_id) join part using (part_id) where hlsmxmlfeedrow.hlsmxmlfeed_id = ?");
         $stmt->bindValue(1, $this->id());
         $stmt->execute();
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -96,7 +96,7 @@ class HLSMXmlFeedObject extends AbstractObject {
                 }
 
                 $field_name = substr($clean_node_name, 0, strlen($clean_node_name) - strlen("_" . $item_count));
-                if (in_array($field_name, array("qty", "partnum", "hlsm_desc", "make", "hlsm_price", "hlsm_year", "hlsm_make", "hlsm_model", "hlsm_cat", "hlsm_dealer", "hlsm_showprice", "hlsm_ip_address", "dirid"))) {
+                if (in_array($field_name, array("qty", "partnum", "hlsm_desc", "make", "hlsm_cost", "hlsm_price", "hlsm_year", "hlsm_make", "hlsm_model", "hlsm_cat", "hlsm_dealer", "hlsm_showprice", "hlsm_ip_address", "dirid"))) {
                     $current_row_object->set($field_name, $item->nodeValue);
                 } else {
                     error_log("HLSMXMLFeed: Unrecognized field name for row $current_row of " . $this->id()  . ": " . $clean_node_name);
