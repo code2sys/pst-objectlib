@@ -164,9 +164,11 @@ class OrderObject extends AbstractObject
 
             } else if ($key == "payments") {
                 $payments_node = $webOrder->addChild("payments");
-                $payment_node = $payments_node->addChild("payment");
-                $payment_node->addChild("type", htmlspecialchars($value["payment"]["type"]));
-                $payment_node->addChild("amount", htmlspecialchars($value["payment"]["amount"]));
+                foreach ($value as $v) {
+                    $payment_node = $payments_node->addChild("payment");
+                    $payment_node->addChild("type", htmlspecialchars($v["type"]));
+                    $payment_node->addChild("amount", htmlspecialchars($v["amount"]));
+                }
 
             } else if ($key == "orderItems") {
                 $orderitems_node = $webOrder->addChild("orderItems");
