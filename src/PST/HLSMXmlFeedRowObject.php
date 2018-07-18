@@ -71,7 +71,7 @@ class HLSMXmlFeedRowObject extends AbstractObject {
             ), array(
                 "partnumber" => "HLSM " . $this->get("make") . " " . $this->get("partnum"),
                 "price" => $this->get("hlsm_price"),
-                "cost" => $this->get("hlsm_price"),
+                "cost" => $this->get("hlsm_cost"),
                 "sale" => $this->get("hlsm_price"),
                 "dealer_sale" => $this->get("hlsm_price"),
                 "manufacturer_id" => $manufacturer_id,
@@ -92,7 +92,7 @@ class HLSMXmlFeedRowObject extends AbstractObject {
                 "partnumber_id" => $partnumber_id,
                 "distributor_id" => $distributor_id,
                 "quantity_available" => 0,
-                "cost" => $this->get("hlsm_price"),
+                "cost" => $this->get("hlsm_cost"),
                 "price" => $this->get("hlsm_price"),
                 "protect" => 1,
                 "quantity_last_updated" => date("Y-m-d H:i:s"),
