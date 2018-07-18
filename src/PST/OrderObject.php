@@ -128,5 +128,132 @@ class OrderObject extends AbstractObject
             "datetime" => strtotime($date),
             "notes" => "Lightspeed: $reason"
         ));
+
+        $this->set("ack_cancel_by_lightspeed", 1);
+        $this->save(); // we don't need to expect another update.
+    }
+
+    public function getCancellationDate() {
+        // we have to go get the time the status was changed to refunded.
+        $matches = $this->factory()->master()->fetch(array(
+            "order_id" => $this->id(),
+            "status" => "Refunded"
+        ));
+
+        if (count($matches) > 0) {
+            return array(date("Y-m-d", $matches[0]->get("datetime")), $matches[0]->get("notes"));
+        } else {
+            return array(date("Y-m-d"), "");
+        }
+
+    }
+
+    public function toXMLStruct(&$orders_node) {
+        $webOrder = $orders_node->addChild("webOrder");
+        $structure = $this->toJSONArray();
+        foreach ($structure as $key => $value) {
+            if ($key == "customers") {
+                $customers_node = $webOrder->addChild("customers");
+
+                foreach ($value as $customer) {
+                    $customer_node = $customers_node->addChild("customer");
+                    foreach ($customer as $key => $value) {
+                        $customer_node->addChild($key, htmlspecialchars($value));
+                    }
+                }
+
+            } else if ($key == "payments") {
+                $payments_node = $webOrder->addChild("payments");
+                $payment_node = $payments_node->addChild("payment");
+                $payment_node->addChild("type", htmlspecialchars($value["payments"]["type"]));
+                $payment_node->addChild("amount", htmlspecialchars($value["payments"]["amount"]));
+
+            } else if ($key == "orderItems") {
+                $orderitems_node = $webOrder->addChild("orderItems");
+
+                foreach ($value as $orderItem) {
+                    $orderitem_node = $orderitems_node->addChild("orderItem");
+                    foreach ($orderItem as $key => $value) {
+                        $orderitem_node->addChild($key, htmlspecialchars($value));
+                    }
+                }
+            } else {
+                $webOrder->addChild($key, htmlspecialchars($value));
+            }
+        }
+    }
+
+    public function getContact($contact_id, $type) {
+        $contact = $this->factory()->master()->contact()->get($contact_id);
+        if (!is_null($contact)) {
+            return array(
+                "type" => $type,
+                "customerID" => $this->get("user_id"),
+                "prefixName" => "",
+                "firstName" => $contact->get("first_name"),
+                "middleName" => "",
+                "lastName" => $contact->get("last_name"),
+                "suffixName" => "",
+                "companyName" => $contact->get("company"),
+                "address1" => $contact->get("street_address"),
+                "address2" => $contact->get("address_2"),
+                "city" => $contact->get("city"),
+                "state" => $contact->get("state"),
+                "county" => "",
+                "country" => $contact->get("country"),
+                "zipCode" => $contact->get("zip"),
+                "phone" => $contact->get("phone"),
+                "workPhone" => "",
+                "email" => $contact->get("email")
+            );
+        } else {
+            return array("type" => $type);
+        }
+    }
+
+    public function getTransactionAmount() {
+        // NOTE: you could go get this from the transaction table,
+        return floatVal($this->get("sales_price")) + floatVal($this->get("shipping")) + floatVal($this->get("tax"));
+    }
+
+    public function getTaxRuleByState($state, $country) {
+        $matches = $this->factory()->master()->taxes()->fetch(array(
+            "mailcode" => $state
+        ), true);
+        if (count($matches) > 0) {
+            return $matches[0]["id"];
+        } else {
+            return 0;
+        }
+    }
+
+    public function getOrderItems() {
+        $stmt = $this->dbh->prepare("select order_product.order_product_id as itemID, part.name as description, order_product.lightspeed_partnumber as itemNumber, manufacturer.name  as manufacturerName, manufacturer.manufacturer_id as manufacturerID , order_product.qty as quantity , order_product.price as amount from order_product join partnumber on order_product.product_sku = partnumber.partnumber join partvariation on order_product.lightspeed_partnumber = partvariation.part_number  AND partnumber.partnumber_id = partvariation.partnumber_id join part using (part_id) join manufacturer on part.manufacturer_id = manufacturer.manufacturer_id where order_product.order_id = ?");
+        $stmt->bindValue(1, $this->id());
+        $stmt->execute();
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    public function toJSONArray() {
+        $structure = array(
+            "orderID" => $this->id(),
+            "date" => date("Y-m-d H:i:s", $this->get("order_date")),
+            "shippingVendor" => "UNKNOWN",
+            "shippingMethod" => "UNKNOWN",
+            "shippingCost" => $this->get("shipping"),
+            "comment" => "",
+            "taxAmount" => $this->get("tax"),
+            "customers" => array(
+                $this->getContact($this->get("contact_id"), "BILLING"),
+                ($sc = $this->getContact($this->get("shipping_id"), "SHIPPING"))
+            ),
+            "payments" => array(
+                "type" => "PAYPAL",
+                "amount" => $this->getTransactionAmount()
+            ),
+            "taxRuleID" => $this->getTaxRuleByState($sc["state"], $sc["country"]),
+            "orderItems" => $this->getOrderItems()
+        );
+
     }
 }

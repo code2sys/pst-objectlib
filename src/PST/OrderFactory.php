@@ -56,7 +56,7 @@ class OrderFactory extends AbstractFactory
         $stmt->execute();
 
         // Now, we should then be looking for Approved that is not shipped/complete, is not Partially Shipped, is not Declined, is not Refunded.
-        $stmt = $this->dbh->prepare("Update `order` set `order`.pending_to_lightspeed = 1 where `order`.pending_to_lightspeed = 0 and `order`.cancel_to_lightspeed = 0 and `order`.id in (select order_id from order_status where status = 'Approved') and `order`.id not in (select order_id from order_status where status in ('Refunded', 'Shipped/Complete', 'Declined', 'Returned', 'Partially Shipped'))");
+        $stmt = $this->dbh->prepare("Update `order` left join order_status A on `order`.id = A.order_id AND A.status = 'Approved' left join order_status B on `order`.id = B.order_id and B.status in ('Refunded', 'Shipped/Complete', 'Declined', 'Returned', 'Partially Shipped') set `order`.pending_to_lightspeed = 1 where `order`.pending_to_lightspeed = 0 and B.order_id is null and A.order_id > 0 and `order`.cancel_to_lightspeed = 0;");
         $stmt->execute();
 
     }
