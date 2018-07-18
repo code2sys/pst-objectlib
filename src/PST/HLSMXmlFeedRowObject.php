@@ -91,6 +91,12 @@ class HLSMXmlFeedRowObject extends AbstractObject {
                 "cost" => $this->get("hlsm_cost"),
                 "sale" => $this->get("hlsm_price")
             ));
+
+            if ($partnumber->get("cost") < $this->get("hlsm_cost")) {
+                $partnumber->set("cost", $this->geT("hlsm_cost"));
+                $partnumber->save();
+            }
+
             $partnumber_id = $partnumber->id();
 
             // Make the part variation entry, if appropriate
@@ -112,9 +118,14 @@ class HLSMXmlFeedRowObject extends AbstractObject {
                 "from_hlsm" => 1
             ), array(
                 "price" => $this->get("hlsm_price"),
-                "cost" => $this->get("hlsm_cost"),
-                "sale" => $this->get("hlsm_price")
+                "cost" => $this->get("hlsm_cost")
             ));
+
+            if ($partvariation->get("cost") < $this->get("hlsm_cost")) {
+                $partvariation->set("cost", $this->geT("hlsm_cost"));
+                $partvariation->save();
+            }
+
             $partvariation_id = $partvariation->id();
 
             // JLB 07-08-18
