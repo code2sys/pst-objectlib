@@ -249,10 +249,10 @@ class OrderObject extends AbstractObject
                 $this->getContact($this->get("contact_id"), "BILLING"),
                 ($sc = $this->getContact($this->get("shipping_id"), "SHIPPING"))
             ),
-            "payments" => array(
+            "payments" => array( array(
                 "type" => "PAYPAL",
                 "amount" => $this->getTransactionAmount()
-            ),
+            ) ),
             "taxRuleID" => $this->getTaxRuleByState($sc["state"], $sc["country"]),
             "orderItems" => $this->getOrderItems()
         );
