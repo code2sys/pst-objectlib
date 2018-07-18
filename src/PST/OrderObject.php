@@ -56,7 +56,7 @@ class OrderObject extends AbstractObject
             if ($item["itemID"] != "") {
                 $matches = $this->factory()->master()->orderProduct()->fetch(array(
                     "order_id" => $this->id(),
-                    "lightspeed_partnumber" => $item["itemID"]
+                    "order_product_id" => $item["itemID"]
                 ));
 
                 if (count($matches) > 0) {
@@ -82,10 +82,13 @@ class OrderObject extends AbstractObject
             ), true);
 
             foreach ($matches as $m) {
-                if ($m["status"] != "Shipped") {
-                    $partial_shipped = true;
-                } else if (intVal($m["lightspeed_shipped"]) > 0 && intVal($m["lightspeed_shipped"]) < intVal($m["quantity"])) {
-                    $partial_shipped = true;
+                // I check this because it is coupons
+                if ($m["price"] >= 0) {
+                    if ($m["status"] != "Shipped") {
+                        $partial_shipped = true;
+                    } else if (intVal($m["lightspeed_shipped"]) > 0 && intVal($m["lightspeed_shipped"]) < intVal($m["quantity"])) {
+                        $partial_shipped = true;
+                    }
                 }
             }
         }
