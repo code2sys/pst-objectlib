@@ -18,7 +18,7 @@ class HLSMXmlFeedRowFactory extends AbstractFactory
     {
         parent::__construct($dbh, $master_factory, $obj, $table, $id);
         $this->_datacols = array(
-            "hlsmxmlfeed_id", "number", "qty", "partnum", "hlsm_desc", "make", "hlsm_price", "hlsm_year", "hlsm_make", "hlsm_model", "hlsm_cat", "hlsm_dealer", "hlsm_showprice", "hlsm_ip_address", "partvariation_id", "uniqid"
+            "hlsmxmlfeed_id", "number", "qty", "partnum", "hlsm_desc", "make", "hlsm_price", "hlsm_year", "hlsm_make", "hlsm_model", "hlsm_cat", "hlsm_dealer", "hlsm_showprice", "hlsm_ip_address", "partvariation_id", "uniqid", "hlsm_cost"
         );
     }
 }
