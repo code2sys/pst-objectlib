@@ -235,7 +235,7 @@ class OrderObject extends AbstractObject
     }
 
     public function toJSONArray() {
-        $structure = array(
+        return array(
             "orderID" => $this->id(),
             "date" => date("Y-m-d H:i:s", $this->get("order_date")),
             "shippingVendor" => "UNKNOWN",
