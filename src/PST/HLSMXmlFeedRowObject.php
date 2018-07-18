@@ -22,10 +22,18 @@ class HLSMXmlFeedRowObject extends AbstractObject {
         );
     }
 
-    protected function _fetchGetAdd($factory, $queryKVP, $addKVP) {
+    protected function _fetchGetAdd($factory, $queryKVP, $addKVP, $updateKVP = array()) {
         $hlsm = $this->factory()->master()->$factory()->fetch($queryKVP);
         if (count($hlsm) == 0) {
             $hlsm = $this->factory()->master()->$factory()->add($addKVP);
+
+            if (count($updateKVP) > 0) {
+                foreach ($updateKVP as $key => $val) {
+                    $hlsm->set($key, $val);
+                }
+                $hlsm->save();
+            }
+
         } else {
             $hlsm = $hlsm[0];
         }
@@ -78,6 +86,10 @@ class HLSMXmlFeedRowObject extends AbstractObject {
                 "universalfit" => $this->get("hlms_model") == "-" ? 1 : 0,
                 "protect" => 1,
                 "inventory" => $this->get("qty")
+            ), array(
+                "price" => $this->get("hlsm_price"),
+                "cost" => $this->get("hlsm_cost"),
+                "sale" => $this->get("hlsm_price")
             ));
             $partnumber_id = $partnumber->id();
 
@@ -98,6 +110,10 @@ class HLSMXmlFeedRowObject extends AbstractObject {
                 "quantity_last_updated" => date("Y-m-d H:i:s"),
                 "clean_part_number" => preg_replace("/[^a-z0-9]/i", "", $this->get("partnum")),
                 "from_hlsm" => 1
+            ), array(
+                "price" => $this->get("hlsm_price"),
+                "cost" => $this->get("hlsm_cost"),
+                "sale" => $this->get("hlsm_price")
             ));
             $partvariation_id = $partvariation->id();
 
