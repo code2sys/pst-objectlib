@@ -17,6 +17,14 @@ class API extends  AbstractSuperFactory {
     public function __construct($dbh) {
         parent::__construct($dbh);
         $this->known_factories = array(
+            "contact" => "ContactFactory",
+            "ordertransaction" => "OrderTransactionFactory",
+            "orderproductlightspeedaction" => "OrderProductLightspeedActionFactory",
+            "orderproduct" => "OrderProductFactory",
+            "orderlightspeedshipment" => "OrderLightspeedShipmentFactory",
+            "order" => "OrderFactory",
+            "orderresponseissue" => "OrderResponseIssueFactory",
+            "orderstatus" => "OrderStatusFactory",
             "partdealervariation" => "PartDealerVariationFactory",
             "partpartnumber" => "PartPartNumberFactory",
             "machinetype" => "MachineTypeFactory",
@@ -54,6 +62,38 @@ class API extends  AbstractSuperFactory {
             "lightspeedpart" => "LightspeedPartFactory",
             "partimage" => "PartImageFactory"
         );
+    }
+
+    public function ordertransaction() {
+        return $this->fetch("ordertransaction");
+    }
+
+    public function contact() {
+        return $this->fetch("contact");
+    }
+
+    public function orderproductlightspeedaction() {
+        return $this->fetch("orderproductlightspeedaction");
+    }
+
+    public function orderproduct() {
+        return $this->fetch("orderproduct");
+    }
+
+    public function orderlightspeedshipment() {
+        return $this->fetch("orderlightspeedshipment");
+    }
+
+    public function order() {
+        return $this->fetch("order");
+    }
+
+    public function orderstatus() {
+        return $this->fetch("orderstatus");
+    }
+
+    public function orderresponseissue() {
+        return $this->fetch("orderresponseissue");
     }
 
     public function partpartnumber() {
@@ -114,6 +154,9 @@ class API extends  AbstractSuperFactory {
 
     public function lightspeedpart() {
         return $this->fetch("lightspeedpart");
+    }
+    public function taxes() {
+        return $this->fetch("taxes");
     }
     public function pagevaultimage() {
         return $this->fetch("pagevaultimage");
