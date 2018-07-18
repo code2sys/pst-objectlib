@@ -91,7 +91,7 @@ class HLSMXmlFeedRowObject extends AbstractObject {
                 "sale" => $this->get("hlsm_price")
             ));
 
-            if ($partnumber->get("cost") < $this->get("hlsm_cost") || $partnumber->get("cost") == $this->get("price")) {
+            if ($partnumber->get("cost") < $this->get("hlsm_cost") || $partnumber->get("cost") == $partnumber->get("price")) {
                 $partnumber->set("cost", $this->geT("hlsm_cost"));
                 $partnumber->save();
             }
