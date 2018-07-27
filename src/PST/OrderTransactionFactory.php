@@ -18,7 +18,7 @@ class OrderTransactionFactory extends AbstractFactory
     {
         parent::__construct($dbh, $master_factory, $obj, $table, $id);
         $this->_datacols = array(
-            "order_id", "braintree_transaction_id", "amount", "transaction_date"
+            "order_id", "braintree_transaction_id", "amount", "transaction_date", "processor"
         );
     }
 
