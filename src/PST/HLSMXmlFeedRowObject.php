@@ -92,7 +92,12 @@ class HLSMXmlFeedRowObject extends AbstractObject {
             ));
 
             if ($partnumber->get("cost") < $this->get("hlsm_cost") || $partnumber->get("cost") == $partnumber->get("price")) {
-                $partnumber->set("cost", $this->geT("hlsm_cost"));
+                $partnumber->set("cost", $this->get("hlsm_cost"));
+                $partnumber->save();
+            }
+
+            if ($partnumber->get("price") != $this->get("hlsm_price")) {
+                $partnumber->set("price", $this->get("hlsm_price"));
                 $partnumber->save();
             }
 
@@ -120,9 +125,16 @@ class HLSMXmlFeedRowObject extends AbstractObject {
                 "cost" => $this->get("hlsm_cost")
             ));
 
-            if ($partvariation->get("cost") < $this->get("hlsm_cost") || ($partvariation->get("cost") == $partvariation->get("price"))) {
-                $partvariation->set("cost", $this->geT("hlsm_cost"));
-                $partvariation->save();
+            if ($partvariation->get("from_hlsm") > 0) {
+                if ($partvariation->get("price") != $this->get("hlsm_price")) {
+                    $partvariation->set("price", $this->get("hlsm_price"));
+                    $partvariation->save();
+                }
+
+                if ($partvariation->get("cost") < $this->get("hlsm_cost") || ($partvariation->get("cost") == $partvariation->get("price"))) {
+                    $partvariation->set("cost", $this->get("hlsm_cost"));
+                    $partvariation->save();
+                }
             }
 
             $partvariation_id = $partvariation->id();
