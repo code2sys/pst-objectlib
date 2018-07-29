@@ -17,6 +17,7 @@ class API extends  AbstractSuperFactory {
     public function __construct($dbh) {
         parent::__construct($dbh);
         $this->known_factories = array(
+            "brand" => "BrandFactory",
             "contact" => "ContactFactory",
             "ordertransaction" => "OrderTransactionFactory",
             "orderproductlightspeedaction" => "OrderProductLightspeedActionFactory",
@@ -62,6 +63,10 @@ class API extends  AbstractSuperFactory {
             "lightspeedpart" => "LightspeedPartFactory",
             "partimage" => "PartImageFactory"
         );
+    }
+
+    public function brand() {
+        return $this->fetch("brand");
     }
 
     public function ordertransaction() {
