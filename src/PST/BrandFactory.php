@@ -22,4 +22,10 @@ class BrandFactory extends AbstractFactory
         );
     }
 
+    public function getBrandCategories($brand_id) {
+        $stmt = $this->dbh->prepare("select distinct category.* from category join partcategory using (category_id) join part using (part_id) join manufacturer using (manufacturer_id) where part.invisible = 0 and manufacturer.brand_id = ?");
+        $stmt->bindValue(1, $brand_id);
+        $stmt->execute();
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
 }
