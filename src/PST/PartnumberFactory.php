@@ -20,7 +20,7 @@ class PartnumberFactory extends AbstractFactory
         $stmt = $this->dbh->prepare("Select partnumber.sale, partdealervariation.quantity_available, partdealervariation.stock_code, partnumber.dealer_sale as sale, partdealervariation.quantity_available as dealer_quantity_available from partnumber join partdealervariation using (partnumber_id) where partnumber.partnumber = ?");
         $stmt->bindValue(1, $partNumber);
         $stmt->execute();
-        return $stmt->fetch(PDO::FETCH_ASSOC);
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
 }
