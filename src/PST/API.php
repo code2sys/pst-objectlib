@@ -61,8 +61,13 @@ class API extends  AbstractSuperFactory {
             "partnumber" => "PartnumberFactory",
             "partvariation" => "PartvariationFactory",
             "lightspeedpart" => "LightspeedPartFactory",
-            "partimage" => "PartImageFactory"
+            "partimage" => "PartImageFactory",
+            "denormalizedmotorcycle" => "DenormalizedMotorcycleFactory"
         );
+    }
+
+    public function denormalizedmotorcycle() {
+        return $this->fetch("denormalizedmotorcycle");
     }
 
     public function brand() {
