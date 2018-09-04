@@ -34,7 +34,7 @@ class DenormalizedMotorcycleFactory extends AbstractFactory
             "category" => $motorcycle->get("category_name"),
             "type" => $motorcycle->get("type"),
             "sku" => $motorcycle->get("sku"),
-            "numeric_sku" => intVal(preg_replace("/[^0-9]/", $motorcycle->get("real_sku") != "" ? $motorcycle->get("real_sku") : $motorcycle->get("sku")))
+            "numeric_sku" => intVal(preg_replace("/[^0-9]/", "", $motorcycle->get("real_sku") != "" ? $motorcycle->get("real_sku") : $motorcycle->get("sku")))
         ));
     }
 
