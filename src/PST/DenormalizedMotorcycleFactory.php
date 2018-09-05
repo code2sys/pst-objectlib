@@ -34,9 +34,11 @@ class DenormalizedMotorcycleFactory extends AbstractFactory
         $number_sku = preg_replace("/[^0-9]/", "", $number_sku);
         $number_sku = intVal($number_sku);
 
+        $normal_characters = "a-zA-Z0-9\s`~!@#$%^&*()_+-={}|:;<>?,.\/\"\'\\\[\]";
+
         $this->add(array(
             "motorcycle_id" => $motorcycle_id,
-            "title" => $motorcycle->get("title"),
+            "title" => preg_replace("/[^$normal_characters]/", ' ', $motorcycle->get("title")),
             "description" => $motorcycle->get("description"),
             "category" => $motorcycle->get("category_name"),
             "type" => $motorcycle->get("type"),
