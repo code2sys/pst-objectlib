@@ -24,7 +24,7 @@ class PartnumberFactory extends AbstractFactory
     }
 
     public function figureSalePrice($partnumbers) {
-        $stmt = $this->dbh->prepare("Select sum(partnumber.sale) from partnumber where partnumber in (''" . implode("','", array_map("addslashes", $partnumbers)) . "')");
+        $stmt = $this->dbh->prepare("Select sum(partnumber.sale) from partnumber where partnumber in ('" . implode("','", array_map("addslashes", $partnumbers)) . "')");
         $stmt->execute();
         return $stmt->fetch(PDO::FETCH_COLUMN);
     }
