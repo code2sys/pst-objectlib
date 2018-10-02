@@ -190,6 +190,39 @@ class DealerTrackFeedLogFactory extends AbstractFactory
     }
 
     protected function addFeedSpec($motorcycle_id, $feature, $attribute_name, $crs_attribute_id, $value, $crs_attributegroup_number) {
+        // I am going to have to make the group, if it doesn't exist, and then I'm going to have to make the entry, if it doesn't exist. Then, we just need to set this, and we'll be done.
+        // Is there such a spec group?
+        $matches = $this->master()->motorcycleSpecGroup()->fetch(array(
+            "motorcycle_id" => $motorcycle_id,
+            "crs_attributegroup_number" => $crs_attributegroup_number
+        ), true);
 
+        if (count($matches) > 0) {
+            $sg_id = $matches[0]["motorcyclespecgroup_id"];
+        } else {
+            $sg = $this->master()->motorcycleSpecGroup()->add(array(
+                "name" => $feature,
+                "ordinal" => $crs_attributegroup_number,
+                "source" => "Dealer Track",
+                "crs_attributegroup_number" => $crs_attributegroup_number,
+                "motorcycle_id" => $motorcycle_id
+            ));
+            $sg_id = $sg->id();
+        }
+
+        // OK, now, we have to attempt to add this attribute...
+        // If we are here, and now, we are adding the motorcycle too, so just add
+        $this->master()->motorcycleSpec()->add(array(
+            "value" => $value,
+            "feature_name" => $feature,
+            "attribute_name" => $attribute_name,
+            "type" => "string",
+            "motorcycle_id" => $motorcycle_id,
+            "final_value" => $value,
+            "override" => 1,
+            "source" => "Dealer Track",
+            "crs_attribute_id" => $crs_attribute_id,
+            "motorcyclespecgroup_id" => $sg_id
+        ));
     }
 }
