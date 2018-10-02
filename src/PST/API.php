@@ -50,6 +50,7 @@ class API extends  AbstractSuperFactory {
             "mdrecordimage" => "MDRecordImageFactory",
             "motorcycle" => "MotorcycleFactory",
             "motorcycleimage" => "MotorcycleImageFactory",
+            "motorcycletype" => "MotorcycleTypeFactory",
             "motorcyclecategory" => "MotorcycleCategoryFactory",
             "config" => "ConfigFactory",
             "motorcycleenquiry" => "MotorcycleEnquiryFactory",
@@ -235,5 +236,8 @@ class API extends  AbstractSuperFactory {
     }
     public function motorcyclecategory() {
         return $this->fetch("motorcyclecategory");
+    }
+    public function motorcycletype() {
+        return $this->fetch("motorcycletype");
     }
 }
