@@ -60,8 +60,6 @@ class DealerTrackFeedLogFactory extends AbstractFactory
             $sku = trim(substr($sku, 1));
         }
 
-        error_log("SKU: $sku");
-
         $real_sku = $sku;
 
         // find the motorcycle, or add it...
@@ -128,12 +126,70 @@ class DealerTrackFeedLogFactory extends AbstractFactory
             $new_data["category"] = $default_category;
             $new_data["vehicle_type"] = $default_type;
             $motorcycle_id = $this->master()->motorcycle()->add($new_data)->id();
-            error_log("Adding new; id is: $motorcycle_id");
+
+
+
+            // Engine => Cylinders
+            if (trim($row["Cylinders"]) != "") {
+                $this->addFeedSpec($motorcycle_id, "Engine", "Cylinders", 30004, trim($row["Cylinders"]) , 3);
+            }
+            // Engine => US Miles Per Gallon (Combined)
+            if (trim($row["MPG"]) != "") {
+                $this->addFeedSpec($motorcycle_id, "Engine", "US Miles Per Gallon (Combined)", 30035, trim($row["MPG"]), 3);
+            }
+
+            // Engine => Fuel Type
+            if (trim($row["Fuel"]) != "") {
+                $value = trim($row["Fuel"]) == "G" ? "Gasoline" : (trim($row["Fuel"]) == "D" ? "Diesel" : trim($row["Fuel"]));
+                $this->addFeedSpec($motorcycle_id, "Engine", "Fuel Type", 30039, $value, 3);
+            }
+            // Engine => Turbocharged
+            if (trim($row["Turbo"]) == "Y") {
+                $this->addFeedSpec($motorcycle_id, "Engine", "Turbocharged", 30040, "Yes", 3);
+            }
+
+
+            // Transmission => Transmission Type
+            if (trim($row["Transmission"]) != "") {
+                $this->addFeedSpec($motorcycle_id, "Transmission", "Transmission Type", 40002, trim($row["Transmission"]), 4);
+            }
+
+            // Only if it's new might we add some dealer specs.
+            // Driveline       | Driveline Type
+            if (trim($row["4WD"]) == "Y") {
+                $this->addFeedSpec($motorcycle_id, "Driveline", "Driveline Type", 180003, "4WD", 18);
+            }
+
         } else {
+            $motorcycle = $this->master()->motorcycle()->get($motorcycle_id);
+
+            // Now, there could be some items set by the customer,
+            // and if that is the case, you must squash them.
+            foreach (array(
+                 "customer_set_vin_number" => "vin_number",
+                 "customer_set_mileage" => "mileage",
+                "customer_set_color" => "color",
+                "customer_set_condition" => "condition",
+                "customer_set_make" => "make",
+                "customer_set_model" => "model",
+                "customer_set_title" => "title",
+                "customer_set_year" => "year",
+                "customer_set_price" => "retail_price",
+                "customer_set_description" => "description",
+                     ) as $flag => $value) {
+                if ($motorcycle->get($flag) > 0) {
+                    unset($new_data[$value]);
+                }
+            }
+
+
             $this->master()->motorcycle()->update($motorcycle_id, $new_data);
-            error_log("Updating; id is $motorcycle_id");
         }
 
         return $motorcycle_id;
+    }
+
+    protected function addFeedSpec($motorcycle_id, $feature, $attribute_name, $crs_attribute_id, $value, $crs_attributegroup_number) {
+
     }
 }
