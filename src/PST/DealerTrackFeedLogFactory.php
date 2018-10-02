@@ -60,6 +60,8 @@ class DealerTrackFeedLogFactory extends AbstractFactory
             $sku = trim(substr($sku, 1));
         }
 
+        error_log("SKU: $sku");
+
         $real_sku = $sku;
 
         // find the motorcycle, or add it...
@@ -124,8 +126,10 @@ class DealerTrackFeedLogFactory extends AbstractFactory
 
         if ($add_new) {
             $motorcycle_id = $this->add($new_data)->id();
+            error_log("Adding new; id is: $motorcycle_id");
         } else {
             $this->update($motorcycle_id, $new_data);
+            error_log("Updating; id is $motorcycle_id");
         }
 
         return $motorcycle_id;
