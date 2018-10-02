@@ -42,8 +42,11 @@ class DealerTrackFeedLogFactory extends AbstractFactory
             "error_string" => $error_string
         ));
 
-        $stmt = $this->dbh->prepare("Update motorcycle set deleted = 1, lightspeed_deleted = 1 where dealertrack = 1 and lightspeed_flag = 0 and customer_deleted = 0");
-        $stmt->execute();
+        if ($this->master()->config()->getKeyValue("dealer_track_delete_if_not_in_upload", 1) > 0) {
+            $stmt = $this->dbh->prepare("Update motorcycle set deleted = 1, lightspeed_deleted = 1 where dealertrack = 1 and lightspeed_flag = 0 and customer_deleted = 0");
+            $stmt->execute();
+        }
+
         $stmt = $this->dbh->prepare("Update motorcycle set deleted = 0 where dealertrack = 1 and lightspeed_flag = 1 and customer_deleted = 0 and lightspeed_deleted = 1");
         $stmt->execute();
     }
@@ -118,8 +121,8 @@ class DealerTrackFeedLogFactory extends AbstractFactory
             "model" => trim($row["Model"]),
             "year" => trim($row["Year"]),
             "codename" => trim($row["Model Code"]),
-            "retail_price" => preg_replace("/[^0-9\.]/", "", trim($row["Price"]))
-
+            "retail_price" => preg_replace("/[^0-9\.]/", "", trim($row["Price"])),
+            "status" => $this->master()->config()->getKeyValue("dealer_track_active_immediately", 0)
         );
 
         if ($add_new) {
