@@ -106,7 +106,7 @@ class DealerTrackFeedLogFactory extends AbstractFactory
         // OK, now, we must consider adding this here bike!
         $new_data = array(
             "sku" => $sku,
-            "title" => trim($row["Year"]) . " " . trim($row["Make"]) . " " . trim($row["Model"]) . " " . trim($row["Trim"]) . " " . trim($row["Model Code"]) . " " . trim($row["Color"]),
+            "title" => trim($row["Year"]) . " " . trim($row["Make"]) . " " . trim($row["Model"]) . " " . trim($row["Trim"]) . " " . trim($row["Model Code"]) ,
             "description" => trim($row["Description"]),
             "condition" => trim($row["Type"]) == "U" ? 2 : 1,
             "vin_number" => trim($row["VIN"]),
