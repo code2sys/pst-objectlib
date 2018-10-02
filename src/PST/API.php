@@ -17,6 +17,7 @@ class API extends  AbstractSuperFactory {
     public function __construct($dbh) {
         parent::__construct($dbh);
         $this->known_factories = array(
+            "dealertrackfeedlog" => "DealerTrackFeedLogFactory",
             "brand" => "BrandFactory",
             "contact" => "ContactFactory",
             "ordertransaction" => "OrderTransactionFactory",
@@ -49,6 +50,7 @@ class API extends  AbstractSuperFactory {
             "mdrecordimage" => "MDRecordImageFactory",
             "motorcycle" => "MotorcycleFactory",
             "motorcycleimage" => "MotorcycleImageFactory",
+            "motorcycletype" => "MotorcycleTypeFactory",
             "motorcyclecategory" => "MotorcycleCategoryFactory",
             "config" => "ConfigFactory",
             "motorcycleenquiry" => "MotorcycleEnquiryFactory",
@@ -64,6 +66,10 @@ class API extends  AbstractSuperFactory {
             "partimage" => "PartImageFactory",
             "denormalizedmotorcycle" => "DenormalizedMotorcycleFactory"
         );
+    }
+
+    public function dealertrackfeedlog() {
+        return $this->fetch("dealertrackfeedlog");
     }
 
     public function denormalizedmotorcycle() {
@@ -230,5 +236,8 @@ class API extends  AbstractSuperFactory {
     }
     public function motorcyclecategory() {
         return $this->fetch("motorcyclecategory");
+    }
+    public function motorcycletype() {
+        return $this->fetch("motorcycletype");
     }
 }
