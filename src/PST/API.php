@@ -17,6 +17,7 @@ class API extends  AbstractSuperFactory {
     public function __construct($dbh) {
         parent::__construct($dbh);
         $this->known_factories = array(
+            "dealertrackfeedlog" => "DealerTrackFeedLogFactory",
             "brand" => "BrandFactory",
             "contact" => "ContactFactory",
             "ordertransaction" => "OrderTransactionFactory",
@@ -64,6 +65,10 @@ class API extends  AbstractSuperFactory {
             "partimage" => "PartImageFactory",
             "denormalizedmotorcycle" => "DenormalizedMotorcycleFactory"
         );
+    }
+
+    public function dealertrackfeedlog() {
+        return $this->fetch("dealertrackfeedlog");
     }
 
     public function denormalizedmotorcycle() {
