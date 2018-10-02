@@ -125,10 +125,10 @@ class DealerTrackFeedLogFactory extends AbstractFactory
         );
 
         if ($add_new) {
-            $motorcycle_id = $this->motorcycle()->add($new_data)->id();
+            $motorcycle_id = $this->master()->motorcycle()->add($new_data)->id();
             error_log("Adding new; id is: $motorcycle_id");
         } else {
-            $this->motorcycle()->update($motorcycle_id, $new_data);
+            $this->master()->motorcycle()->update($motorcycle_id, $new_data);
             error_log("Updating; id is $motorcycle_id");
         }
 
