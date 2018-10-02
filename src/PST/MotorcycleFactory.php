@@ -30,7 +30,7 @@ class MotorcycleFactory extends AbstractFactory
             "customer_set_price", "customer_set_description", "customer_deleted",
             "lightspeed_deleted", "mdfeed", "mdfeed_deleted", "location_description", "mdrecord_recordid",
             "mdfeed_flag", "customer_set_location_description",
-            "customer_set_vin_number", "customer_set_mileage", "customer_set_color", "customer_set_call_on_price", "customer_set_destination_charge", "customer_set_condition", "customer_set_category", "customer_set_make", "customer_set_model", "customer_set_title", "customer_set_year", "dealership_id", "manager_special", "real_sku", "customer_set_location", "codename"
+            "customer_set_vin_number", "customer_set_mileage", "customer_set_color", "customer_set_call_on_price", "customer_set_destination_charge", "customer_set_condition", "customer_set_category", "customer_set_make", "customer_set_model", "customer_set_title", "customer_set_year", "dealership_id", "manager_special", "real_sku", "customer_set_location", "codename", "dealertrack"
         );
     }
 
