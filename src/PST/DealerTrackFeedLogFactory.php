@@ -127,6 +127,10 @@ class DealerTrackFeedLogFactory extends AbstractFactory
             "status" => $this->master()->config()->getKeyValue("dealer_track_active_immediately", 0)
         );
 
+        if ($row["Make"] == "CAN AM") {
+            print "Make is still CAN AM\n";
+        }
+
         if ($add_new) {
             $new_data["category"] = $default_category;
             $new_data["vehicle_type"] = $default_type;
@@ -184,6 +188,7 @@ class DealerTrackFeedLogFactory extends AbstractFactory
                      ) as $flag => $value) {
                 if ($motorcycle->get($flag) > 0) {
                     unset($new_data[$value]);
+                    print "Excluding $value on $motorcycle_id \n";
                 }
             }
 
