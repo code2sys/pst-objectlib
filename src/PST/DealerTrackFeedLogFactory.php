@@ -117,7 +117,7 @@ class DealerTrackFeedLogFactory extends AbstractFactory
             "lightspeed_flag" => 1,
             "transmission" => trim($row["Transmission"]),
             "color" => trim($row["Color"]),
-            "make" => trim($row["Make"]),
+            "make" => normalize_incoming_make(trim($row["Make"])),
             "model" => trim($row["Model"]),
             "year" => trim($row["Year"]),
             "codename" => trim($row["Model Code"]),
