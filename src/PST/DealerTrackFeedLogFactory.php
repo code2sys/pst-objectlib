@@ -124,7 +124,8 @@ class DealerTrackFeedLogFactory extends AbstractFactory
             "year" => trim($row["Year"]),
             "codename" => trim($row["Model Code"]),
             "retail_price" => preg_replace("/[^0-9\.]/", "", trim($row["Price"])),
-            "status" => $this->master()->config()->getKeyValue("dealer_track_active_immediately", 0)
+            "status" => $this->master()->config()->getKeyValue("dealer_track_active_immediately", 0),
+            "dealertrack" => 1
         );
 
         if ($add_new) {
@@ -166,6 +167,7 @@ class DealerTrackFeedLogFactory extends AbstractFactory
             }
 
         } else {
+            unset($new_data["dealertrack"]);
             $motorcycle = $this->master()->motorcycle()->get($motorcycle_id);
 
             // Now, there could be some items set by the customer,
@@ -181,6 +183,7 @@ class DealerTrackFeedLogFactory extends AbstractFactory
                 "customer_set_year" => "year",
                 "customer_set_price" => "retail_price",
                 "customer_set_description" => "description",
+                "customer_set_type" => "vehicle_type"
                      ) as $flag => $value) {
                 if ($motorcycle->get($flag) > 0) {
                     unset($new_data[$value]);
