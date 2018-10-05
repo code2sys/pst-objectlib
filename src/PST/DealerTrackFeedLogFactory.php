@@ -103,10 +103,12 @@ class DealerTrackFeedLogFactory extends AbstractFactory
             }
         }
 
+        $row["Make"] = normalize_incoming_make(trim($row["Make"]));
+
         // OK, now, we must consider adding this here bike!
         $new_data = array(
             "sku" => $sku,
-            "title" => trim($row["Year"]) . " " . trim($row["Make"]) . " " . trim($row["Model"]) . " " . trim($row["Trim"]) . " " . trim($row["Model Code"]) ,
+            "title" => trim($row["Year"]) . " " . $row["Make"]  . " " . trim($row["Model"]) . " " . trim($row["Trim"]) . " " . trim($row["Model Code"]) ,
             "description" => trim($row["Description"]),
             "condition" => trim($row["Type"]) == "U" ? 2 : 1,
             "vin_number" => trim($row["VIN"]),
@@ -117,7 +119,7 @@ class DealerTrackFeedLogFactory extends AbstractFactory
             "lightspeed_flag" => 1,
             "transmission" => trim($row["Transmission"]),
             "color" => trim($row["Color"]),
-            "make" => normalize_incoming_make(trim($row["Make"])),
+            "make" => $row["Make"] ,
             "model" => trim($row["Model"]),
             "year" => trim($row["Year"]),
             "codename" => trim($row["Model Code"]),
@@ -184,7 +186,6 @@ class DealerTrackFeedLogFactory extends AbstractFactory
                     unset($new_data[$value]);
                 }
             }
-
 
             $this->master()->motorcycle()->update($motorcycle_id, $new_data);
         }
