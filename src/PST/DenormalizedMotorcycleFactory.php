@@ -18,7 +18,7 @@ class DenormalizedMotorcycleFactory extends AbstractFactory
     {
         parent::__construct($dbh, $master_factory, $obj, $table, $id);
         $this->_datacols = array(
-            "motorcycle_id", "title", "description", "category", "type", "sku", "numeric_sku"
+            "motorcycle_id", "title", "description", "category", "type", "sku", "numeric_sku", "model"
         );
     }
 
@@ -43,7 +43,8 @@ class DenormalizedMotorcycleFactory extends AbstractFactory
             "category" => $motorcycle->get("category_name"),
             "type" => $motorcycle->get("type"),
             "sku" => $motorcycle->get("sku"),
-            "numeric_sku" => $number_sku
+            "numeric_sku" => $number_sku,
+            "model" => $motorcycle->get("model")
         ));
     }
 
