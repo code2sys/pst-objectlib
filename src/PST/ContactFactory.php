@@ -70,7 +70,7 @@ class ContactFactory extends AbstractFactory
             'lightspeed_active_load',
             'lightspeed_cycletrader_load',
             'lightspeed_override_parts_pricing',
-            'mdfeed_active_load', "merchant_type", "stripe_api_key", "stripe_secret_api_key"
+            'mdfeed_active_load', "merchant_type", "stripe_api_key", "stripe_secret_api_key", "trafficLogProApiKey", "trafficLogProDealerCode"
         );
     }
 
