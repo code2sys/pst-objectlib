@@ -17,6 +17,13 @@ class API extends  AbstractSuperFactory {
     public function __construct($dbh) {
         parent::__construct($dbh);
         $this->known_factories = array(
+            "showcasemake" => "ShowcaseMakeFactory",
+            "showcasemodel" => "ShowcaseModelFactory",
+            "showcasephoto" => "ShowcasePhotoFactory",
+            "showcasespec" => "ShowcaseSpecFactory",
+            "showcaseyear" => "ShowcaseYearFactory",
+
+
             "dealertrackfeedlog" => "DealerTrackFeedLogFactory",
             "brand" => "BrandFactory",
             "contact" => "ContactFactory",
@@ -68,6 +75,21 @@ class API extends  AbstractSuperFactory {
         );
     }
 
+    public function showcasemake() {
+        return $this->fetch("showcasemake");
+    }
+    public function showcasemodel() {
+        return $this->fetch("showcasemodel");
+    }
+    public function showcasephoto() {
+        return $this->fetch("showcasephoto");
+    }
+    public function showcasespec() {
+        return $this->fetch("showcasespec");
+    }
+    public function showcaseyear() {
+        return $this->fetch("showcaseyear");
+    }
     public function dealertrackfeedlog() {
         return $this->fetch("dealertrackfeedlog");
     }
