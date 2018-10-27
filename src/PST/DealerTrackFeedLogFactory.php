@@ -125,6 +125,7 @@ class DealerTrackFeedLogFactory extends AbstractFactory
             "codename" => trim($row["Model Code"]),
             "retail_price" => preg_replace("/[^0-9\.]/", "", trim($row["Price"])),
             "status" => $this->master()->config()->getKeyValue("dealer_track_active_immediately", 0),
+            "cycletrader_feed_status" => $this->master()->config()->getKeyValue("dealer_track_default_cycletrader", 1),
             "dealertrack" => 1
         );
 
