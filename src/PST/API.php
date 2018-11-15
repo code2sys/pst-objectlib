@@ -17,6 +17,7 @@ class API extends  AbstractSuperFactory {
     public function __construct($dbh) {
         parent::__construct($dbh);
         $this->known_factories = array(
+            "pages" => "PageFactory",
             "showcasemake" => "ShowcaseMakeFactory",
             "showcasemodel" => "ShowcaseModelFactory",
             "showcasephoto" => "ShowcasePhotoFactory",
@@ -75,6 +76,9 @@ class API extends  AbstractSuperFactory {
         );
     }
 
+    public function pages() {
+        return $this->fetch("pages");
+    }
     public function showcasemake() {
         return $this->fetch("showcasemake");
     }
