@@ -18,7 +18,7 @@ class ShowcasePhotoFactory extends AbstractFactory
     {
         parent::__construct($dbh, $master_factory, $obj, $table, $id);
         $this->_datacols = array(
-            "showcasemodel_id", "crs_photomap_id", "exclude"
+            "showcasetrim_id", "crs_photomap_id", "deleted", "url"
         );
     }
 }

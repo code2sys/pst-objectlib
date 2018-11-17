@@ -18,7 +18,7 @@ class ShowcaseSpecFactory extends AbstractFactory
     {
         parent::__construct($dbh, $master_factory, $obj, $table, $id);
         $this->_datacols = array(
-            "showcasemodel_id", "crs_attribute_id", "exclude", "override_value"
+            "version_number", "value", "feature_name", "attribute_name", "type", "external_package_id", "showcasetrim_id", "final_value", "override", "deleted", "crs_attribute_id", "ordinal", "shwocasespecgroup_id"
         );
     }
 }
