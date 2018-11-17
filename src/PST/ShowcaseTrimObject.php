@@ -21,4 +21,7 @@ class ShowcaseTrimObject extends ShowcaseAbstractObject
     public function disable() {
 
     }
+    public function doFullURL() {
+        $this->addToParentFullURL("showcasemodel", "showcasemodel_id");
+    }
 }

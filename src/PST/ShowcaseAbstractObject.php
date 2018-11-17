@@ -46,6 +46,18 @@ class ShowcaseAbstractObject extends AbstractObject
 
         $this->set("url_title", $url_candidate);
         $this->save();
+
+        $this->doFullURL();
     }
 
+    public function doFullURL() {
+        $this->set("full_url", $this->get("url_title"));
+        $this->save();
+    }
+
+    public function addToParentFullURL($parent_factory, $id_column) {
+        $parent = $this->factory()->master()->$parent_factory()->get($this->get($id_column));
+        $this->set("full_url", $parent->get("full_url") . "/" . $this->get("url_title"));
+        $this->save();
+    }
 }

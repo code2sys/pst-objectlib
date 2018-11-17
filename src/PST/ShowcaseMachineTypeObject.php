@@ -21,5 +21,8 @@ class ShowcaseMachineTypeObject extends ShowcaseAbstractObject
     public function disable() {
 
     }
+    public function doFullURL() {
+        $this->addToParentFullURL("showcasemake", "showcasemake_id");
+    }
 
 }
