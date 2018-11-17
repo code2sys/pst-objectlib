@@ -18,7 +18,7 @@ class ShowcaseMakeFactory extends AbstractFactory
     {
         parent::__construct($dbh, $master_factory, $obj, $table, $id);
         $this->_datacols = array(
-            "make", "crs_make_id", "description", "include_model_pattern", "exclude_model_pattern", "thumbnail_photo", "title", "updated", "page_id", "deleted"
+            "make", "crs_make_id", "description", "include_model_pattern", "exclude_model_pattern", "thumbnail_photo", "title", "updated", "page_id", "deleted", "url_title"
         );
     }
 }

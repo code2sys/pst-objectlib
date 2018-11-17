@@ -11,7 +11,7 @@ namespace PST;
 use \PDO;
 use \PDOException;
 
-class ShowcaseModelObject extends AbstractObject
+class ShowcaseModelObject extends ShowcaseAbstractObject
 {
     public function __construct($dbh, $id, $data, $factory)
     {
