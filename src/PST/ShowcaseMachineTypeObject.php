@@ -17,4 +17,9 @@ class ShowcaseMachineTypeObject extends AbstractObject
     {
         parent::__construct($dbh, $id, $data, $factory);
     }
+
+    public function disable() {
+
+    }
+
 }
