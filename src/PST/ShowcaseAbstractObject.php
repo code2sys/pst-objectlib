@@ -24,6 +24,7 @@ class ShowcaseAbstractObject extends AbstractObject
 
     public function fixURLTitle() {
         if ($this->get("url_title") != "") {
+            $this->doFullURL();
             return;
         }
 
