@@ -23,6 +23,13 @@ class ShowcaseAbstractObject extends AbstractObject
     }
 
     public function fixURLTitle() {
+        // JLB: 11-20-18:
+        // We have to start using the display title just in case.
+        if ($this->get("title") != $this->get("display_title") && intVal($this->get("customer_set_title")) == 0) {
+            $this->set("display_title", $this->get("title"));
+            $this->save();
+        }
+
         if ($this->get("url_title") != "") {
             $this->doFullURL();
             return;
