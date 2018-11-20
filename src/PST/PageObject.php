@@ -19,7 +19,7 @@ class PageObject extends AbstractObject
     }
 
     public function hasThumbnail() {
-        return in_array($this->get("page_class"), array("Showroom Model", "Showroom Trim", "Showroom Make", "Showroom Machine Type", "Showroom Landing Page"));
+        return $this->hasShowcaseObject();
     }
 
     public function hasShowcaseObject() {
