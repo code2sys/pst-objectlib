@@ -35,7 +35,7 @@ class ShowcaseAbstractObject extends AbstractObject
             return;
         }
 
-        $url_candidate = preg_replace("/[^a-z0-9\-]+/i", "_", $this->get("title"));
+        $url_candidate = preg_replace("/[^a-z0-9]+/i", "_", $this->get("title"));
 
         $matches = $this->factory()->fetch(array("url_title" => $url_candidate));
 
