@@ -63,7 +63,7 @@ class ExternalMajorUnitImageFactory extends AbstractFactory
                     "disable" => 0
                 ));
 
-                foreach ($images as $image) {
+                foreach ($images as $key => $image) {
 
                     // Checking if the image is removed by admin
                     $motorcycleimages = $this->master()->motorcycleimage()->fetch(array(
@@ -78,7 +78,7 @@ class ExternalMajorUnitImageFactory extends AbstractFactory
                             "motorcycle_id" => $motorcycle['id'],
                             "image_name" => $image,
                             "date_added" => date("Y-m-d H:i:s"),
-                            "priority_number" => 1,
+                            "priority_number" => $key,
                             "external" => 1,
                             "source" => "Dealer Made"
                         ));
