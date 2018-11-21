@@ -18,7 +18,7 @@ class ShowcaseTrimFactory extends AbstractFactory
     {
         parent::__construct($dbh, $master_factory, $obj, $table, $id);
         $this->_datacols = array(
-            "showcasemodel_id", "title", "description", "crs_trim_id", "page_id", "deleted", "thumbnail_photo", "updated", "url_title", "full_url", "short_title", "display_title", "customer_set_title", "retail_price", "engine_type", "transmission", "category", "customer_set_category", "customer_set_retail_price", "customer_set_engine_type", "customer_set_transmission"
+            "showcasemodel_id", "title", "description", "crs_trim_id", "page_id", "deleted", "thumbnail_photo", "updated", "url_title", "full_url", "short_title", "display_title", "customer_set_title", "retail_price", "engine_type", "transmission", "category", "customer_set_category", "customer_set_retail_price", "customer_set_engine_type", "customer_set_transmission", "customer_set_short_title"
         );
     }
 
