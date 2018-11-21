@@ -17,7 +17,7 @@ class PageFactory extends AbstractFactory
     {
         parent::__construct($dbh, $master_factory, $obj, $table, $id);
         $this->_datacols = array(
-            "label", "title", "active", "tag", "keywords", "metatags", "css", "javascript", "delete", "widgets", "icon", "location", "external_link", "external_url", "type", "original_filename", "attachment_filename", "attachment_mime_type"< "page_custom_js", "page_class"
+            "label", "title", "active", "tag", "keywords", "metatags", "css", "javascript", "delete", "widgets", "icon", "location", "external_link", "external_url", "type", "original_filename", "attachment_filename", "attachment_mime_type", "page_custom_js", "page_class"
         );
     }
 
