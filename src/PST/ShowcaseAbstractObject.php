@@ -16,6 +16,7 @@ class ShowcaseAbstractObject extends AbstractObject
     public function __construct($dbh, $id, $data, $factory)
     {
         parent::__construct($dbh, $id, $data, $factory);
+        $this->doFullURL();
     }
 
     public function disable() {
