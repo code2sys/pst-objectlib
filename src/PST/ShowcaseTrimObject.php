@@ -26,7 +26,7 @@ class ShowcaseTrimObject extends ShowcaseAbstractObject
     }
 
     public function addDecorations() {
-        $showcasemodel = $this->factory()->master()->showcasemodel()->get($this->id());
+        $showcasemodel = $this->factory()->master()->showcasemodel()->get($this->get("showcasemodel_id"));
         $this->set("model", $showcasemodel->get("title"));
         $showcasemachinetype = $this->factory()->master()->showcasemachinetype()->get($showcasemodel->get("showcasemachinetype_id"));
         $this->set("type", $showcasemachinetype->get("title"));
