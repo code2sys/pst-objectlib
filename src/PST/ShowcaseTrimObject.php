@@ -24,4 +24,14 @@ class ShowcaseTrimObject extends ShowcaseAbstractObject
     public function doFullURL() {
         $this->addToParentFullURL("showcasemodel", "showcasemodel_id");
     }
+
+    public function addDecorations() {
+        $showcasemodel = $this->factory()->master()->showcasemodel()->get($this->id());
+        $this->set("model", $showcasemodel->get("title"));
+        $showcasemachinetype = $this->factory()->master()->showcasemachinetype()->get($showcasemodel->get("showcasemachinetype_id"));
+        $this->set("type", $showcasemachinetype->get("title"));
+        $showcasemake = $this->factory()->master()->showcasemake()->get($showcasemachinetype->get("showcasemake_id"));
+        $this->set("make", $showcasemake->get("title"));
+    }
+
 }
