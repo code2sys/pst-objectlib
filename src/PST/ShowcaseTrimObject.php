@@ -32,6 +32,7 @@ class ShowcaseTrimObject extends ShowcaseAbstractObject
         $this->set("type", $showcasemachinetype->get("title"));
         $showcasemake = $this->factory()->master()->showcasemake()->get($showcasemachinetype->get("showcasemake_id"));
         $this->set("make", $showcasemake->get("title"));
+        $this->set("year", $showcasemodel->get("year"));
     }
 
 }
