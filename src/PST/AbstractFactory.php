@@ -529,6 +529,9 @@ abstract class AbstractFactory
         return in_array("Ordinal", $this->_datacols);
     }
 
-
+    public function getMaxOrdinal($kvpArray) {
+        $results = $this->_subFetch("Select max(ordinal) as cnt from `" . $this->table . "`", $kvpArray);
+        return count($results) > 0 ? $results[0]["cnt"] : 0;
+    }
 
 }

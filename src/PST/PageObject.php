@@ -18,6 +18,29 @@ class PageObject extends AbstractObject
         parent::__construct($dbh, $id, $data, $factory);
     }
 
+    public function hasShowcaseSegment() {
+        return ($this->hasShowcaseObject() || $this->get("page_class") == "Showroom Landing Page") && $this->get("page_class") != "Showroom Trim";
+    }
+
+    public function fixShowcaseSegment() {
+        if ($this->hasShowcaseSegment()) {
+            $segments = $this->factory()->master()->pagesection()->fetch(array(
+                "page_id" => $this->id(),
+                "type" => "Factory Showroom"
+            ));
+
+            if (count($segments) == 0) {
+                // add one...
+                $widget_ordinal = 1 + intVal($this->factory()->master()->pagesection()->getMaxOrdinal(array("page_id" => $this->id())));
+                $this->factory()->master()->pagesection()->add(array(
+                    "page_id" => $this->id(),
+                    "type" => "Factory Showroom",
+                    "ordinal" => $widget_ordinal
+                ));
+            }
+        }
+    }
+
     public function hasThumbnail() {
         return $this->hasShowcaseObject();
     }
