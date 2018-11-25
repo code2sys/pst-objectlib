@@ -83,8 +83,12 @@ class PageObject extends AbstractObject
         if ($this->hasShowcaseObject() || $this->get("page_class") == "Showroom Landing Page") {
             // we have to get the home page...
             $home_page = $this->factory()->get(TOP_LEVEL_PAGE_ID_HOME);
-            $this->set("keywords", $home_page->get("keywords"));
-            $this->set("metatags", $home_page->get("metatags"));
+            if ($this->get("customer_set_keywords") == 0) {
+                $this->set("keywords", $home_page->get("keywords"));
+            }
+            if ($this->get("customer_set_metatags") == 0) {
+                $this->set("metatags", $home_page->get("metatags"));
+            }
         }
     }
 }
