@@ -24,14 +24,17 @@ class PageObject extends AbstractObject
 
     public function fixShowcaseSegment() {
         if ($this->hasShowcaseSegment()) {
+            error_log("This one has page segments");
             $segments = $this->factory()->master()->pagesection()->fetch(array(
                 "page_id" => $this->id(),
                 "type" => "Factory Showroom"
             ));
 
             if (count($segments) == 0) {
+                error_log("Zero count on segments");
                 // add one...
                 $widget_ordinal = 1 + intVal($this->factory()->master()->pagesection()->getMaxOrdinal(array("page_id" => $this->id())));
+                error_log("Ordinal: " . $widget_ordinal);
                 $this->factory()->master()->pagesection()->add(array(
                     "page_id" => $this->id(),
                     "type" => "Factory Showroom",
