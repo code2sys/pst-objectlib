@@ -79,4 +79,12 @@ class PageObject extends AbstractObject
         return (count($models) > 0) ? $models[0] : null;
     }
 
+    public function inheritHomeMeta() {
+        if ($this->hasShowcaseObject() || $this->get("page_class") == "Showroom Landing Page") {
+            // we have to get the home page...
+            $home_page = $this->factory()->get(TOP_LEVEL_PAGE_ID_HOME);
+            $this->set("keywords", $home_page->get("keywords"));
+            $this->set("metatags", $home_page->get("metatags"));
+        }
+    }
 }
