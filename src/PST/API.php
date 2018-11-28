@@ -17,6 +17,7 @@ class API extends  AbstractSuperFactory {
     public function __construct($dbh) {
         parent::__construct($dbh);
         $this->known_factories = array(
+            "financeapplication" => "FinanceApplicationFactory",
             "dealertrackfeedlog" => "DealerTrackFeedLogFactory",
             "externalmajorunitimage" => "ExternalMajorUnitImageFactory",
             "brand" => "BrandFactory",
@@ -71,6 +72,10 @@ class API extends  AbstractSuperFactory {
 
     public function dealertrackfeedlog() {
         return $this->fetch("dealertrackfeedlog");
+    }
+
+    public function financeapplication() {
+        return $this->fetch("financeapplication");
     }
 
     public function externalmajorunitimage() {
