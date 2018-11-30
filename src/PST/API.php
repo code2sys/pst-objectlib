@@ -17,6 +17,16 @@ class API extends  AbstractSuperFactory {
     public function __construct($dbh) {
         parent::__construct($dbh);
         $this->known_factories = array(
+            "pagesection" => "PageSectionFactory",
+            "queuedemail" => "QueuedEmailFactory",
+            "pages" => "PageFactory",
+            "showcasemachinetype" => "ShowcaseMachineTypeFactory",
+            "showcasemake" => "ShowcaseMakeFactory",
+            "showcasemodel" => "ShowcaseModelFactory",
+            "showcasephoto" => "ShowcasePhotoFactory",
+            "showcasespec" => "ShowcaseSpecFactory",
+            "showcasespecgroup" => "ShowcaseSpecGroupFactory",
+            "showcasetrim" => "ShowcaseTrimFactory",
             "financeapplication" => "FinanceApplicationFactory",
             "dealertrackfeedlog" => "DealerTrackFeedLogFactory",
             "externalmajorunitimage" => "ExternalMajorUnitImageFactory",
@@ -70,6 +80,36 @@ class API extends  AbstractSuperFactory {
         );
     }
 
+    public function pages() {
+        return $this->fetch("pages");
+    }
+    public function pagesection() {
+        return $this->fetch("pagesection");
+    }
+    public function queuedemail() {
+        return $this->fetch("queuedemail");
+    }
+    public function showcasemachinetype() {
+        return $this->fetch("showcasemachinetype");
+    }
+    public function showcasemake() {
+        return $this->fetch("showcasemake");
+    }
+    public function showcasemodel() {
+        return $this->fetch("showcasemodel");
+    }
+    public function showcasephoto() {
+        return $this->fetch("showcasephoto");
+    }
+    public function showcasespec() {
+        return $this->fetch("showcasespec");
+    }
+    public function showcasespecgroup() {
+        return $this->fetch("showcasespecgroup");
+    }
+    public function showcasetrim() {
+        return $this->fetch("showcasetrim");
+    }
     public function dealertrackfeedlog() {
         return $this->fetch("dealertrackfeedlog");
     }

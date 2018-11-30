@@ -38,16 +38,16 @@ abstract class AbstractFactory
         return "Select * from `" . $this->table . "`";
     }
 
-    public function simpleQuery($kvpArray, $fetch_as_arr = false) {
-        return $this->_subFetch($this->_simpleQuery(), $kvpArray, $fetch_as_arr);
+    public function simpleQuery($kvpArray, $fetch_as_arr = false, $trailer = "") {
+        return $this->_subFetch($this->_simpleQuery(), $kvpArray, $fetch_as_arr, array(), 0, $trailer);
     }
 
     protected function _simpleCountQuery() {
         return "Select count(*) as cnt from `" . $this->table . "`";
     }
 
-    public function simpleCount($kvpArray = array()) {
-        $results = $this->_subFetch($this->_simpleCountQuery(), $kvpArray, true);
+    public function simpleCount($kvpArray = array(), $trailer = "") {
+        $results = $this->_subFetch($this->_simpleCountQuery(), $kvpArray, true, array(), 0, $trailer);
         if (count($results) > 0) {
             return $results[0]["cnt"];
         } else {
@@ -529,6 +529,9 @@ abstract class AbstractFactory
         return in_array("Ordinal", $this->_datacols);
     }
 
-
+    public function getMaxOrdinal($kvpArray) {
+        $results = $this->_subFetch("Select max(ordinal) as cnt from `" . $this->table . "`", $kvpArray, true);
+        return count($results) > 0 ? $results[0]["cnt"] : 0;
+    }
 
 }

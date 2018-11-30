@@ -87,10 +87,10 @@ class ExternalMajorUnitImageFactory extends AbstractFactory
                     }
                 }
 
-                // Updating motorcycle source
-                $this->master()->motorcycle()->update($motorcycle['id'], array(
-                    "source" => "Dealer Made"
-                ));                
+//                // Updating motorcycle source
+//                $this->master()->motorcycle()->update($motorcycle['id'], array(
+//                    "source" => "Dealer Made"
+//                ));
             }
         }
 
