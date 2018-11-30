@@ -81,6 +81,7 @@ class PageObject extends AbstractObject
 
     public function inheritHomeMeta() {
         if ($this->hasShowcaseObject() || $this->get("page_class") == "Showroom Landing Page") {
+            error_log("inheritHomeMeta");
             // we have to get the home page...
             $home_page = $this->factory()->get(TOP_LEVEL_PAGE_ID_HOME);
             if ($this->get("customer_set_keywords") == 0) {
