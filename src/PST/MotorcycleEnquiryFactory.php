@@ -18,7 +18,7 @@ class MotorcycleEnquiryFactory extends AbstractFactory
     {
         parent::__construct($dbh, $master_factory, $obj, $table, $id);
         $this->_datacols = array(
-            "firstName", "lastName", "email", "phone", "address", "city", "state", "zipcode", "date_of_ride", "make", "model", "year", "miles", "accessories", "questions", "product_id", "motorcycle", "status", "sent_time", "old_date_of_ride", "ip_address"
+            "firstName", "lastName", "email", "phone", "address", "city", "state", "zipcode", "date_of_ride", "make", "model", "year", "miles", "accessories", "questions", "product_id", "motorcycle", "status", "sent_time", "old_date_of_ride", "ip_address", "sku", "monthly_payment", "down_payment", "interest_rate", "term", "accessory_options", "warranty_options"
         );
     }
 }
