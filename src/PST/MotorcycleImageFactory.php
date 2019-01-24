@@ -21,7 +21,7 @@ class MotorcycleImageFactory extends AbstractFactory
         $this->_datacols = array(
             "motorcycle_id", "image_name", "date_added", "description", "priority_number",
             "external", "version_number", "source", "disable", "crs_thumbnail",
-            "extra_data"
+            "extra_data", "customer_deleted"
         );
     }
 }
