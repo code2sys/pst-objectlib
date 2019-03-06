@@ -17,6 +17,8 @@ class API extends  AbstractSuperFactory {
     public function __construct($dbh) {
         parent::__construct($dbh);
         $this->known_factories = array(
+            "partcategory" => "PartCategoryFactory",
+            "category" => "CategoryFactory",
             "pagesection" => "PageSectionFactory",
             "queuedemail" => "QueuedEmailFactory",
             "pages" => "PageFactory",
@@ -289,5 +291,11 @@ class API extends  AbstractSuperFactory {
     }
     public function motorcycletype() {
         return $this->fetch("motorcycletype");
+    }
+    public function category() {
+        return $this->fetch("category");
+    }
+    public function partcategory() {
+        return $this->fetch("partcategory");
     }
 }
