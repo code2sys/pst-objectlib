@@ -184,6 +184,8 @@ class DealerTrackFeedLogFactory extends AbstractFactory
                 "customer_set_year" => "year",
                 "customer_set_price" => "retail_price",
                 "customer_set_description" => "description",
+                "customer_set_transmission" => "transmission",
+                "customer_set_engine_type" => "engine_type",
                 "customer_set_type" => "vehicle_type"
                      ) as $flag => $value) {
                 if ($motorcycle->get($flag) > 0) {
